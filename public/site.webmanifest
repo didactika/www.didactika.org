@@ -1,0 +1,13 @@
+{
+  "name": "Didactika",
+  "short_name": "Didactika",
+  "description": "Software open source que impulsa el aprendizaje: plugins para Moodle, paquetes NPM y herramientas para entornos virtuales de aprendizaje.",
+  "icons": [
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#0d9488",
+  "background_color": "#F8FAFC",
+  "display": "standalone",
+  "start_url": "/"
+}

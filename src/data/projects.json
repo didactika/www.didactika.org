@@ -1,0 +1,68 @@
+[
+  {
+    "id": "moodle-servicemanager",
+    "type": "moodle",
+    "typeName": "Moodle Plugin",
+    "name": "moodle-local_servicemanager",
+    "desc": "Plugin de Moodle que crea y administra servicios web de forma automatizada mediante archivos de configuración YAML. Configura de forma inmediata usuarios, roles, permisos y tokens de acceso.",
+    "license": "GPL-3.0",
+    "version": "v1.2.0",
+    "link": "https://github.com/didactika/moodle-local_servicemanager",
+    "moodleLink": "https://moodle.org/plugins/local_servicemanager"
+  },
+  {
+    "id": "prisma-ef",
+    "type": "npm",
+    "typeName": "NPM Package",
+    "name": "prisma-entity-framework",
+    "desc": "Librería para Node.js y TypeScript que implementa los patrones Repository y Unit of Work sobre el ORM Prisma, inspirada en la arquitectura limpia de Entity Framework de .NET.",
+    "license": "MIT",
+    "version": "v1.4.2",
+    "installCmd": "npm i prisma-entity-framework",
+    "link": "https://github.com/didactika/prisma-entity-framework"
+  },
+  {
+    "id": "prisma-autoread",
+    "type": "npm",
+    "typeName": "NPM Package",
+    "name": "@didactika/prisma-autoread",
+    "desc": "Extensión para Prisma que redirige automáticamente las consultas de lectura a las réplicas de tu base de datos, mientras asegura que las escrituras se realicen siempre en la instancia primaria.",
+    "license": "MIT",
+    "version": "v1.1.0",
+    "installCmd": "npm i @didactika/prisma-autoread",
+    "link": "https://github.com/didactika/prisma-autoread"
+  },
+  {
+    "id": "moodle-messagebroker",
+    "type": "moodle",
+    "typeName": "Moodle Plugin",
+    "name": "moodle-local_messagebroker",
+    "desc": "Plugin de Moodle que ofrece una interfaz única para enviar y recibir mensajes asíncronos en colas y servidores de mensajería externos como RabbitMQ, Kafka, AWS SQS, Azure Service Bus y Google Pub/Sub.",
+    "license": "GPL-3.0",
+    "version": "v2.1.0",
+    "link": "https://github.com/didactika/moodle-local_messagebroker",
+    "moodleLink": "https://moodle.org/plugins/local_messagebroker"
+  },
+  {
+    "id": "moodle-eventbus",
+    "type": "moodle",
+    "typeName": "Moodle Plugin",
+    "name": "moodle-local_eventbus",
+    "desc": "Bus de eventos para Moodle que intercepta acciones del sistema, añade información de contexto automáticamente (como datos del curso o usuario involucrado) y las publica en colas de mensajería.",
+    "license": "GPL-3.0",
+    "version": "v2.0.0",
+    "link": "https://github.com/didactika/moodle-local_eventbus",
+    "moodleLink": "https://moodle.org/plugins/local_eventbus"
+  },
+  {
+    "id": "resilientmq-core",
+    "type": "npm",
+    "typeName": "NPM Package",
+    "name": "@resilientmq/core",
+    "desc": "Motor de mensajería asíncrona ligero para Node.js y TypeScript que implementa colas de mensajes con reintentos automáticos, almacenamiento local y tolerancia activa a caídas del sistema.",
+    "license": "MIT",
+    "version": "v1.0.5",
+    "installCmd": "npm i @resilientmq/core",
+    "link": "https://github.com/didactika/resilientmq-core"
+  }
+]

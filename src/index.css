@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+/*
+ * El escenario del hero (parallax + flotación) se anima por completo desde
+ * JavaScript en un único bucle requestAnimationFrame (ver App.tsx), no con
+ * animaciones CSS. Por eso aquí ya no hay @keyframes.
+ */
