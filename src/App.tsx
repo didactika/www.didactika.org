@@ -565,7 +565,7 @@ export default function App() {
                   
                   {/* Enlaces de Perfil */}
                   <div className="flex gap-3 pt-2 justify-center sm:justify-start">
-                    <a href="https://github.com/didactika" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-slate-900 transition-all shadow-sm" title="GitHub">
+                    <a href="https://github.com/e2rd0" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-slate-900 transition-all shadow-sm" title="GitHub">
                       <Github className="h-4 w-4" />
                     </a>
                     <a href="https://eduardoestrada.com" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-teal-600 transition-all shadow-sm" title="Sitio Web">
@@ -596,7 +596,7 @@ export default function App() {
                   
                   {/* Enlaces de Perfil */}
                   <div className="flex gap-3 pt-2 justify-center sm:justify-start">
-                    <a href="https://github.com/didactika" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-slate-900 transition-all shadow-sm" title="GitHub">
+                    <a href="https://github.com/hector-ae21" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-slate-900 transition-all shadow-sm" title="GitHub">
                       <Github className="h-4 w-4" />
                     </a>
                     <a href="https://www.linkedin.com/in/hector-arrechea/" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-[#0A66C2] transition-all shadow-sm" title="LinkedIn">
@@ -613,11 +613,9 @@ export default function App() {
       </section>
       </main>
 
-      {/* Footer */}
       <footer className="py-20 bg-white border-t border-slate-100 text-center relative z-10">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8 text-slate-400 text-sm font-medium">
           <div className="flex items-center gap-3">
-            {/* Contenedor del Logo con el SVG vectorial adaptativo para el Footer */}
             <div className="h-8 w-8 bg-slate-900 rounded-lg p-1.5 flex items-center justify-center">
               <Logo className="h-6 w-6 text-white" fill="#ffffff" />
             </div>
