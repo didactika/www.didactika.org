@@ -4,65 +4,139 @@
     "type": "moodle",
     "typeName": "Moodle Plugin",
     "name": "local_servicemanager",
-    "desc": "Plugin de Moodle que crea y administra servicios web de forma automatizada mediante archivos de configuración YAML. Configura de forma inmediata usuarios, roles, permisos y tokens de acceso.",
+    "translation": [
+      {
+        "lang": "es",
+        "desc": "Plugin de Moodle que crea y administra servicios web de forma automatizada mediante archivos de configuración YAML. Configura de forma inmediata usuarios, roles, permisos y tokens de acceso."
+      },
+      {
+        "lang": "en",
+        "desc": "Moodle plugin that creates and manages web services automatically through YAML configuration files. Instantly configures users, roles, permissions and access tokens."
+      }
+    ],
     "license": "GPL-3.0",
-    "version": "v1.0.0",
+    "version": "v1.1.1",
     "link": "https://github.com/didactika/moodle-local_servicemanager",
-    "moodleLink": "https://moodle.org/plugins/local_servicemanager"
+    "moodleLink": "https://marketplace.moodle.com/plugins/local_servicemanager"
   },
   {
     "id": "prisma-ef",
     "type": "npm",
     "typeName": "NPM Package",
     "name": "prisma-entity-framework",
-    "desc": "Capa sobre Prisma que añade entidades estilo Active Record, consultas avanzadas y utilidades de rendimiento para trabajar con modelos de base de datos de forma más cómoda y estructurada en TypeScript.",
+    "translation": [
+      {
+        "lang": "es",
+        "desc": "Capa sobre Prisma que añade entidades estilo Active Record, consultas avanzadas y utilidades de rendimiento para trabajar con modelos de base de datos de forma más cómoda y estructurada en TypeScript."
+      },
+      {
+        "lang": "en",
+        "desc": "Layer over Prisma that adds Active Record-style entities, advanced queries and performance utilities for working with database models in a more comfortable and structured way in TypeScript."
+      }
+    ],
     "license": "MIT",
-    "version": "v2.1.0",
-    "installCmd": "npm i prisma-entity-framework",
-    "link": "https://github.com/didactika/prisma-entity-framework"
+    "version": "v3.1.3",
+    "installCmd": "npm i @didactika/prisma-entity",
+    "link": "https://github.com/didactika/prisma-entity"
   },
   {
     "id": "prisma-autoread",
     "type": "npm",
     "typeName": "NPM Package",
     "name": "@didactika/prisma-autoread",
-    "desc": "Paquete para Express y Prisma que automatiza endpoints de lectura/listado, convirtiendo parámetros de URL en filtros, búsquedas, paginación, ordenamiento e includes de Prisma con validación basada en el schema.",
+    "translation": [
+      {
+        "lang": "es",
+        "desc": "Paquete para Express y Prisma que automatiza endpoints de lectura/listado, convirtiendo parámetros de URL en filtros, búsquedas, paginación, ordenamiento e includes de Prisma con validación basada en el schema."
+      },
+      {
+        "lang": "en",
+        "desc": "Package for Express and Prisma that automates read/list endpoints, converting URL parameters into Prisma filters, searches, pagination, sorting and includes with validation based on the schema."
+      }
+    ],
     "license": "MIT",
-    "version": "v0.0.1",
+    "version": "v1.2.0",
     "installCmd": "npm i @didactika/prisma-autoread",
     "link": "https://github.com/didactika/prisma-autoread"
   },
   {
-    "id": "moodle-messagebroker",
+    "id": "moodle-local_autograder",
     "type": "moodle",
     "typeName": "Moodle Plugin",
-    "name": "local_messagebroker",
-    "desc": "Plugin local que permite conectar Moodle con plataformas externas mediante brokers de mensajería como RabbitMQ, Apache Kafka, MQTT, AWS SQS, Azure Service Bus y Google Cloud Pub/Sub, centralizando la publicación, consumo y seguimiento de eventos.",
+    "name": "local_autograder",
+    "translation": [
+      {
+        "lang": "es",
+        "desc": "Plugin local de Moodle que califica automáticamente las actividades completadas que un profesor no ha calificado después de cierta fecha límite."
+      },
+      {
+        "lang": "en",
+        "desc": "Moodle local plugin that automatically grades completed activities that a teacher has not graded after a configured deadline."
+      }
+    ],
     "license": "GPL-3.0",
-    "version": "v0.0.1",
-    "link": "https://github.com/didactika/moodle-local_messagebroker",
-    "moodleLink": "https://moodle.org/plugins/local_messagebroker"
+    "version": "v1.1.0",
+    "link": "https://github.com/didactika/moodle-local_autograder",
+    "moodleLink": "https://marketplace.moodle.com/plugins/local_autograder"
   },
   {
-    "id": "moodle-eventbus",
+    "id": "moodle-report_autograder",
     "type": "moodle",
     "typeName": "Moodle Plugin",
-    "name": "local_eventbus",
-    "desc": "Centraliza la captura de eventos de Moodle, aplica enriquecimiento automático de contexto y permite publicarlos en colas o exchanges configurados mediante Local Message Broker, facilitando integraciones asíncronas con sistemas externos.",
+    "name": "report_autograder",
+    "translation": [
+      {
+        "lang": "es",
+        "desc": "Reporte de Moodle para revisar lo que el plugin local de Autograder calificó, lo que está pendiente y lo que falló, por actividad, curso o sitio."
+      },
+      {
+        "lang": "en",
+        "desc": "Moodle report for reviewing what the local Autograder plugin graded, what is pending and what failed, by activity, course or site."
+      }
+    ],
     "license": "GPL-3.0",
-    "version": "v0.0.1",
-    "link": "https://github.com/didactika/moodle-local_eventbus",
-    "moodleLink": "https://moodle.org/plugins/local_eventbus"
+    "version": "v1.1.0",
+    "link": "https://github.com/didactika/moodle-report_autograder",
+    "moodleLink": "https://marketplace.moodle.com/plugins/report_autograder"
   },
   {
     "id": "resilientmq-core",
     "type": "npm",
     "typeName": "NPM Package",
     "name": "@resilientmq/core",
-    "desc": "Librería para Node.js que permite publicar y consumir eventos en RabbitMQ con lógica de resiliencia, reintentos automáticos, DLQ, middleware y persistencia del estado de cada mensaje.",
+    "translation": [
+      {
+        "lang": "es",
+        "desc": "Librería para Node.js que permite publicar y consumir eventos en RabbitMQ con lógica de resiliencia, reintentos automáticos, DLQ, middleware y persistencia del estado de cada mensaje."
+      },
+      {
+        "lang": "en",
+        "desc": "Node.js library that allows publishing and consuming events in RabbitMQ with resilience logic, automatic retries, DLQ, middleware and persistence of the state of each message."
+      }
+    ],
     "license": "MIT",
-    "version": "v2.3.1",
+    "version": "v3.0.1",
     "installCmd": "npm i @resilientmq/core",
-    "link": "https://github.com/didactika/resilientmq-core"
+    "link": "https://github.com/resilientmq/core"
+  },
+  {
+    "id": "moodle-local_delegateaccount",
+    "type": "moodle",
+    "typeName": "Moodle Plugin",
+    "name": "local_delegateaccount",
+    "translation": [
+      {
+        "lang": "es",
+        "desc": "Plugin local de Moodle para otorgar a usuarios autorizados acceso a cuentas específicas, usando la funcionalidad de Moodle de \"Iniciar sesión como\"."
+      },
+      {
+        "lang": "en",
+        "desc": "Moodle local plugin for granting authorised users access to specific accounts through Moodle's built-in Log in as workflow."
+      }
+    ],
+    "license": "GPL-3.0",
+    "version": "v1.0.0",
+    "link": "https://github.com/didactika/moodle-local_delegateaccount",
+    "moodleLink": "https://marketplace.moodle.com/plugins/local_delegateaccount"
   }
 ]

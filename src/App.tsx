@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useRef } from 'react';
+import { Fragment, useState, useLayoutEffect, useRef } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 import {
   BookOpen, Package, Menu, X,
@@ -19,12 +19,15 @@ import photoHector from './assets/hector-pp.jpg';
 // Datos de proyectos (externalizados a JSON)
 import projectsData from './data/projects.json';
 
+import { LANGS, LANG_PATHS, DEFAULT_LANG, dictionaries, rememberLang } from './i18n';
+import type { Lang } from './i18n';
+
 type Project = {
   id: string;
   type: 'moodle' | 'npm';
   typeName: string;
   name: string;
-  desc: string;
+  translation: { lang: Lang; desc: string }[];
   license: string;
   version: string;
   link: string;
@@ -60,7 +63,37 @@ const Logo = ({ className = "h-full w-full", fill = "#00555a" }) => (
   </svg>
 );
 
-export default function App() {
+// Selector de idioma: enlaces normales a la otra entrada HTML. Antes de navegar
+// guarda la elección en una cookie para que vercel.json la respete.
+const LanguageSwitcher = ({ lang, label, className = "" }: { lang: Lang; label: string; className?: string }) => (
+  <div role="group" aria-label={label} className={`flex items-center gap-1.5 text-xs font-bold ${className}`}>
+    {LANGS.map((l, i) => (
+      <Fragment key={l}>
+        {i > 0 && <span aria-hidden="true" className="text-slate-300">·</span>}
+        <a
+          href={LANG_PATHS[l]}
+          hrefLang={l}
+          lang={l}
+          aria-current={l === lang ? 'page' : undefined}
+          onClick={() => rememberLang(l)}
+          className={`py-1 uppercase transition-colors ${
+            l === lang ? 'text-teal-700' : 'text-slate-500 hover:text-teal-700'
+          }`}
+        >
+          {l}
+        </a>
+      </Fragment>
+    ))}
+  </div>
+);
+
+// Descripción del proyecto en el idioma actual, con español como respaldo
+const getProjectDesc = (project: Project, lang: Lang) =>
+  (project.translation.find((tr) => tr.lang === lang)
+    ?? project.translation.find((tr) => tr.lang === DEFAULT_LANG))?.desc ?? '';
+
+export default function App({ lang }: { lang: Lang }) {
+  const t = dictionaries[lang];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [copiedRepoId, setCopiedRepoId] = useState<string | null>(null);
 
@@ -171,7 +204,7 @@ export default function App() {
       </div>
 
       {/* Navegación */}
-      <nav aria-label="Navegación principal" className="fixed w-full top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-100">
+      <nav aria-label={t.nav.label}className="fixed w-full top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex-shrink-0 flex items-center gap-3 group cursor-pointer" onClick={handleScrollToSection('home')}>
@@ -186,19 +219,20 @@ export default function App() {
 
             {/* Navbar Links */}
             <div className="hidden md:flex items-center space-x-2">
-              <button 
+              <LanguageSwitcher lang={lang} label={t.nav.language} className="mr-4" />
+              <button
                 onClick={handleScrollToSection('proyectos')} 
                 className="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-teal-700 transition-colors"
               >
-                Proyectos
+                {t.nav.projects}
               </button>
-              <button 
-                onClick={handleScrollToSection('about')} 
+              <button
+                onClick={handleScrollToSection('about')}
                 className="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-teal-700 transition-colors"
               >
-                Acerca de
+                {t.nav.about}
               </button>
-              <a 
+              <a
                 href="https://github.com/didactika" 
                 target="_blank" 
                 rel="noreferrer" 
@@ -209,8 +243,9 @@ export default function App() {
             </div>
 
             {/* Menu móvil trigger */}
-            <div className="md:hidden flex items-center">
-              <button 
+            <div className="md:hidden flex items-center gap-2">
+              <LanguageSwitcher lang={lang} label={t.nav.language} />
+              <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
                 className="text-slate-500 hover:text-slate-900 p-2"
               >
@@ -228,13 +263,13 @@ export default function App() {
                 onClick={handleScrollToSection('proyectos')}
                 className="text-left text-base font-semibold text-slate-700 hover:text-teal-700 p-3 rounded-lg hover:bg-slate-50 w-full"
               >
-                Proyectos
+                {t.nav.projects}
               </button>
-              <button 
+              <button
                 onClick={handleScrollToSection('about')}
                 className="text-left text-base font-semibold text-slate-700 hover:text-teal-700 p-3 rounded-lg hover:bg-slate-50 w-full"
               >
-                Acerca de
+                {t.nav.about}
               </button>
               <a 
                 href="https://github.com/didactika"
@@ -259,20 +294,20 @@ export default function App() {
           {/* Columna de Texto - Aparece PRIMERO en móvil */}
           <div className="relative z-30 text-center lg:text-left">
             <h1 className="text-5xl sm:text-6xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[0.85] mb-8">
-              Tecnología <br />
+              {t.hero.titleLine1} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-500">
-              Didáctica.
+              {t.hero.titleHighlight}
               </span>
             </h1>
             <p className="text-lg lg:text-xl text-slate-500 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium">
-              Desarrollamos software que impulsa el aprendizaje. Plugins para Moodle, paquetes NPM y herramientas de código abierto para entornos virtuales de aprendizaje.
+              {t.hero.subtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button 
                 onClick={handleScrollToSection('proyectos')}
                 className="px-10 py-5 bg-teal-600 text-white rounded-2xl font-bold shadow-xl shadow-teal-600/30 hover:bg-teal-700 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
               >
-                Explorar Proyectos <ArrowRight className="h-5 w-5" />
+                {t.hero.cta} <ArrowRight className="h-5 w-5" />
               </button>
             </div>
           </div>
@@ -289,7 +324,7 @@ export default function App() {
               >
                 <img
                   src={layerDesk}
-                  alt="Escritorio"
+                  alt={t.hero.alt.desk}
                   className="w-full h-full object-contain opacity-90"
                 />
               </div>
@@ -301,7 +336,7 @@ export default function App() {
               >
                 <img
                   src={layerBooks}
-                  alt="Libros"
+                  alt={t.hero.alt.books}
                   className="w-full h-full object-contain drop-shadow-xl opacity-90"
                 />
               </div>
@@ -313,7 +348,7 @@ export default function App() {
               >
                 <img
                   src={layerLaptop}
-                  alt="Laptop"
+                  alt={t.hero.alt.laptop}
                   className="w-full h-full object-contain drop-shadow-2xl"
                 />
               </div>
@@ -325,7 +360,7 @@ export default function App() {
               >
                 <img
                   src={layerUI}
-                  alt="UI Elements"
+                  alt={t.hero.alt.ui}
                   className="w-full h-full object-contain drop-shadow-2xl"
                 />
               </div>
@@ -343,10 +378,10 @@ export default function App() {
           <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div className="max-w-2xl text-left">
               <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
-                Proyectos <span className="text-teal-600">Destacados</span>
+                {t.projects.title.pre}<span className="text-teal-600">{t.projects.title.highlight}</span>{t.projects.title.post}
               </h2>
               <p className="text-lg text-slate-500 font-medium">
-                Repositorios y herramientas de código abierto construidos con estándares de rendimiento, accesibilidad y modularidad.
+                {t.projects.subtitle}
               </p>
             </div>
             <a 
@@ -356,13 +391,15 @@ export default function App() {
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-slate-200 hover:border-slate-300 text-slate-700 font-bold text-sm bg-white transition-all self-start md:self-auto shrink-0 shadow-sm"
             >
               <ExternalLink className="h-4 w-4 text-slate-500" />
-              <span>Ver en GitHub</span>
+              <span>{t.projects.viewOnGithub}</span>
             </a>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project) => (
-              <div 
+            {projects.map((project) => {
+              const desc = getProjectDesc(project, lang);
+              return (
+              <div
                 key={project.id} 
                 className="relative bg-white/80 backdrop-blur-md p-6 rounded-3xl border border-slate-200/80 hover:border-teal-500/50 hover:shadow-[0_15px_30px_rgba(13,148,136,0.04)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group"
               >
@@ -396,9 +433,9 @@ export default function App() {
                   {/* Descripción de hasta 4 líneas con atributo title para lectura completa al hacer hover */}
                   <p 
                     className="text-sm text-slate-500 line-clamp-4 leading-relaxed mb-6 cursor-help" 
-                    title={project.desc}
+                    title={desc}
                   >
-                    {project.desc}
+                    {desc}
                   </p>
                 </div>
 
@@ -427,7 +464,7 @@ export default function App() {
                           target="_blank" 
                           rel="noreferrer"
                           className="px-2 py-2 text-[11px] xs:text-xs font-bold rounded-xl border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all flex items-center justify-center gap-1 shadow-sm w-full h-full sm:w-auto text-center whitespace-nowrap"
-                          title="Ver código en GitHub"
+                          title={t.projects.viewCodeOnGithub}
                         >
                           <ExternalLink className="h-3.5 w-3.5 text-slate-500 shrink-0" />
                           <span>GitHub</span>
@@ -445,12 +482,12 @@ export default function App() {
                           {copiedRepoId === project.id ? (
                             <>
                               <Check className="h-3 w-3 shrink-0" />
-                              <span>Copiado</span>
+                              <span>{t.projects.copied}</span>
                             </>
                           ) : (
                             <>
                               <Terminal className="h-3 w-3 shrink-0" />
-                              <span>Instalar</span>
+                              <span>{t.projects.install}</span>
                             </>
                           )}
                         </button>
@@ -474,17 +511,18 @@ export default function App() {
                           target="_blank" 
                           rel="noreferrer"
                           className="px-2 py-2 text-[11px] xs:text-xs font-bold rounded-xl border border-teal-200 bg-teal-50 text-teal-700 hover:bg-teal-100/80 hover:border-teal-300 transition-all flex items-center justify-center gap-1 shadow-sm w-full h-full sm:w-auto text-center whitespace-nowrap"
-                          title="Ver en el directorio oficial de plugins de Moodle"
+                          title={t.projects.viewOnMoodle}
                         >
                           <ExternalLink className="h-3.5 w-3.5 text-teal-600 shrink-0" />
-                          <span>Moodle Org</span>
+                          <span>Moodle Marketplace</span>
                         </a>
                       </>
                     )}
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
 
         </div>
@@ -498,23 +536,14 @@ export default function App() {
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-24">
             <div className="lg:col-span-5 text-left">
               <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-none mb-6">
-                Construyendo un puente de <span className="text-teal-600">código libre</span> hacia la educación.
+                {t.about.title.pre}<span className="text-teal-600">{t.about.title.highlight}</span>{t.about.title.post}
               </h2>
             </div>
-            
+
             <div className="lg:col-span-7 space-y-6 text-left text-lg text-slate-500 font-medium leading-relaxed">
-              <p>
-                Didactika es un laboratorio de tecnología e innovación educativa dedicado a crear proyectos open source que impulsen el aprendizaje digital.
-              </p>
-              <p>
-                Creemos en una infraestructura educativa libre, robusta y scalable, capaz de responder a los retos actuales de usabilidad, interactividad e integración.
-              </p>
-              <p>
-                Nuestro objetivo es construir soluciones listas para producción que sirvan tanto a instituciones educativas como a desarrolladores y comunidades comprometidas con el software libre.
-              </p>
-              <p>
-                En Didactika, transformamos código abierto en oportunidades para aprender mejor.
-              </p>
+              {t.about.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </div>
           </div>
 
@@ -522,15 +551,15 @@ export default function App() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 p-8 sm:p-12 rounded-[2.5rem] bg-slate-50 border border-slate-200/60 mb-32 text-center">
             <div className="flex flex-col items-center justify-center py-4">
               <p className="text-4xl sm:text-5xl font-black text-slate-900 mb-2 tracking-tight">100%</p>
-              <p className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-widest">Código Abierto</p>
+              <p className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-widest">{t.about.metrics.openSource}</p>
             </div>
             <div className="flex flex-col items-center justify-center py-6 sm:py-4 border-y border-slate-200/60 sm:border-y-0 sm:border-x sm:border-slate-200/60">
               <p className="text-4xl sm:text-5xl font-black text-teal-600 mb-2 tracking-tight">v4.0+</p>
-              <p className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-wider">Soporte Moodle</p>
+              <p className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-wider">{t.about.metrics.moodleSupport}</p>
             </div>
             <div className="flex flex-col items-center justify-center py-4">
               <p className="text-4xl sm:text-5xl font-black text-emerald-600 mb-2 tracking-tight">MIT/GPL</p>
-              <p className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-widest">Licenciamiento Libre</p>
+              <p className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-widest">{t.about.metrics.licensing}</p>
             </div>
           </div>
 
@@ -538,10 +567,10 @@ export default function App() {
           <div className="text-center">
             <div className="mb-16">
               <h3 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
-                Nuestros <span className="text-teal-600">Fundadores</span>
+                {t.founders.title.pre}<span className="text-teal-600">{t.founders.title.highlight}</span>{t.founders.title.post}
               </h3>
               <p className="text-base text-slate-400 font-semibold mt-2 max-w-xl mx-auto">
-                Un equipo técnico con experiencia en Moodle, desarrollo web, microservicios e integraciones educativas.
+                {t.founders.subtitle}
               </p>
             </div>
 
@@ -557,10 +586,10 @@ export default function App() {
                 <div className="space-y-3 text-center sm:text-left flex-1">
                   <div>
                     <h4 className="text-xl font-bold text-slate-900">Eduardo Estrada</h4>
-                    <p className="text-xs font-bold text-teal-600 uppercase tracking-widest font-mono">Co-fundador</p>
+                    <p className="text-xs font-bold text-teal-600 uppercase tracking-widest font-mono">{t.founders.role}</p>
                   </div>
                   <p className="text-sm text-slate-500 leading-relaxed font-medium">
-                    Ingeniero informático con experiencia en desarrollo full-stack, microservicios orientados a eventos e integraciones con Moodle. Su experiencia combina la creación de herramientas para campus virtuales con la extracción y uso de datos educativos para analítica del aprendizaje.
+                    {t.founders.bios.eduardo}
                   </p>
                   
                   {/* Enlaces de Perfil */}
@@ -568,7 +597,7 @@ export default function App() {
                     <a href="https://github.com/e2rd0" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-slate-900 transition-all shadow-sm" title="GitHub">
                       <Github className="h-4 w-4" />
                     </a>
-                    <a href="https://eduardoestrada.com" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-teal-600 transition-all shadow-sm" title="Sitio Web">
+                    <a href="https://eduardoestrada.com" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-teal-600 transition-all shadow-sm" title={t.founders.website}>
                       <Globe className="h-4 w-4" />
                     </a>
                     <a href="https://www.linkedin.com/in/estradaeduardo/" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-[#0A66C2] transition-all shadow-sm" title="LinkedIn">
@@ -588,10 +617,10 @@ export default function App() {
                 <div className="space-y-3 text-center sm:text-left flex-1">
                   <div>
                     <h4 className="text-xl font-bold text-slate-900">Hector Arrechea</h4>
-                    <p className="text-xs font-bold text-teal-600 uppercase tracking-widest font-mono">Co-fundador</p>
+                    <p className="text-xs font-bold text-teal-600 uppercase tracking-widest font-mono">{t.founders.role}</p>
                   </div>
                   <p className="text-sm text-slate-500 leading-relaxed font-medium">
-                    Ingeniero informático y máster en ciberseguridad, con experiencia en Moodle, microservicios e integraciones con sistemas educativos. Su enfoque técnico integra seguridad aplicada, patrones de diseño y criterios de calidad en el desarrollo de soluciones para plataformas educativas.
+                    {t.founders.bios.hector}
                   </p>
                   
                   {/* Enlaces de Perfil */}
@@ -614,7 +643,7 @@ export default function App() {
       </main>
 
       <footer className="py-20 bg-white border-t border-slate-100 text-center relative z-10">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8 text-slate-400 text-sm font-medium">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8 text-slate-400 text-sm font-medium">
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 bg-slate-900 rounded-lg p-1.5 flex items-center justify-center">
               <Logo className="h-6 w-6 text-white" fill="#ffffff" />
@@ -623,7 +652,7 @@ export default function App() {
           </div>
           <div>
             <p>© {new Date().getFullYear()} — Didactika.org</p>
-            <p>Impulsando la educación a través del código abierto.</p>
+            <p>{t.footer.tagline}</p>
           </div>
           <div className="flex gap-6">
             <a href="https://github.com/didactika" className="hover:text-slate-900 transition-colors">GitHub</a>
