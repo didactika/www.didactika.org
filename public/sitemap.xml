@@ -5,7 +5,7 @@
     <loc>https://didactika.org/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://didactika.org/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://didactika.org/en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://didactika.org/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://didactika.org/en/" />
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
@@ -14,7 +14,7 @@
     <loc>https://didactika.org/en/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://didactika.org/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://didactika.org/en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://didactika.org/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://didactika.org/en/" />
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
