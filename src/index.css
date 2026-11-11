@@ -20,3 +20,45 @@ body {
  * JavaScript en un único bucle requestAnimationFrame (ver App.tsx), no con
  * animaciones CSS. Por eso aquí ya no hay @keyframes.
  */
+
+/*
+ * Colores del tema. Tailwind lee sus colores de variables, así que el tema oscuro las redefine: la escala de grises se invierte (lo que
+ * era un fondo claro pasa a ser un fondo oscuro y el texto oscuro pasa a claro) y el verde azulado se aclara. El tema lo fija el atributo
+ * data-theme de <html>, que cada página pone antes de pintar (ver index.html).
+ */
+:root {
+  --logo-ink: #00555a;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --logo-ink: #5eead4;
+  --color-white: #0f191c;
+  --color-slate-50: #0a1113;
+  --color-slate-100: #15222a;
+  --color-slate-200: #1f3036;
+  --color-slate-300: #2c434b;
+  --color-slate-400: #6b868c;
+  --color-slate-500: #93a8ad;
+  --color-slate-600: #b4c4c8;
+  --color-slate-700: #cbd8db;
+  --color-slate-800: #dde7e9;
+  --color-slate-900: #e8f1f2;
+  --color-slate-950: #f4f9fa;
+  --color-teal-50: #11302f;
+  --color-teal-100: #134240;
+  --color-teal-200: #155e59;
+  --color-teal-300: #2aa89b;
+  --color-teal-600: #2dd4bf;
+  --color-teal-700: #5eead4;
+  --color-teal-800: #99f6e4;
+  --color-emerald-100: #123524;
+  --color-emerald-500: #34d399;
+  --color-emerald-600: #34d399;
+  --color-emerald-700: #6ee7b7;
+}
+
+body {
+  background-color: var(--color-slate-50);
+}

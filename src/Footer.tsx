@@ -1,8 +1,6 @@
-import { BookOpen, Heart, LayoutGrid, Palette, UserPlus } from 'lucide-react';
+import { Heart, LayoutGrid, UserPlus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Logo } from './App';
-import photoEduardo from './assets/eduardo-pp.jpg';
-import photoHector from './assets/hector-pp.jpg';
 import { LANG_PATHS, dictionaries } from './i18n';
 import type { Lang } from './i18n';
 
@@ -13,8 +11,7 @@ interface Person {
 }
 
 const ORG = 'didactika';
-const MAX = 8;
-const FOUNDERS = ['E2RD0', 'hector-ae21'];
+const MAX = 10;
 const CACHE_KEY = 'didactika-people';
 const CACHE_MS = 30 * 60 * 1000;
 
@@ -24,8 +21,8 @@ const GithubMark = ({ className = '' }: { className?: string }) => (
   </svg>
 );
 
-// The people who collaborate: the public members of the organisation on GitHub, read when the page opens and kept for half an hour so a
-// visit does not spend the limit GitHub puts on anonymous requests. Without them the foot simply shows no collaborators.
+// The people of the organisation: its public members on GitHub (the co-founders have their own section above), read when the page opens
+// and kept for half an hour so a visit does not spend the limit GitHub puts on anonymous requests. Without them, none are shown.
 function useCollaborators(): Person[] {
   const [people, setPeople] = useState<Person[]>([]);
 
@@ -46,9 +43,7 @@ function useCollaborators(): Person[] {
       });
       if (!response.ok) return;
       const raw = (await response.json()) as Array<{ login: string; html_url: string; avatar_url: string }>;
-      const list = raw
-        .filter((user) => !FOUNDERS.some((founder) => founder.toLowerCase() === user.login.toLowerCase()))
-        .map((user) => ({ login: user.login, url: user.html_url, avatar: `${user.avatar_url}${user.avatar_url.includes('?') ? '&' : '?'}s=64` }));
+      const list = raw.map((user) => ({ login: user.login, url: user.html_url, avatar: `${user.avatar_url}${user.avatar_url.includes('?') ? '&' : '?'}s=64` }));
       try {
         sessionStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), list }));
       } catch {
@@ -65,29 +60,21 @@ function useCollaborators(): Person[] {
   return people;
 }
 
-// The foot of every page of didactika.org, the same as the one of the documentation and of the design system: what Didactika is, its
-// co-founders, its collaborators, where to find it and how to support it.
+// The foot of every page of didactika.org: what Didactika is, who collaborates, where everything is and how to support it. The co-founders
+// and the documentation have their own place on the page, so the foot does not repeat them.
 export default function Footer({ lang }: { lang: Lang }) {
   const t = dictionaries[lang].footer;
   const people = useCollaborators();
   const shown = people.slice(0, MAX);
-  const founders = [
-    { name: 'Eduardo Estrada', photo: photoEduardo, url: 'https://github.com/E2RD0' },
-    { name: 'Hector Arrechea', photo: photoHector, url: 'https://github.com/hector-ae21' },
-  ];
-  const links = [
-    { label: t.docs, href: 'https://docs.didactika.org/', icon: BookOpen },
-    { label: t.design, href: 'https://moodle-design.didactika.org/', icon: Palette },
-    { label: t.resources, href: `${LANG_PATHS[lang]}resources/`, icon: LayoutGrid },
-  ];
+  const button = 'inline-flex h-9 items-center gap-2 rounded-xl border border-slate-200 px-3 text-[13px] font-semibold text-slate-800 transition-colors hover:border-teal-400 hover:bg-teal-50';
 
   return (
     <footer className="relative z-10 border-t border-slate-100 bg-white">
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-6">
-          <a href={LANG_PATHS[lang]} className="flex max-w-sm items-center gap-3 text-slate-900">
+          <a href={LANG_PATHS[lang]} className="flex max-w-md items-center gap-3 text-slate-900">
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm">
-              <Logo className="h-9 w-9" fill="#00555a" />
+              <Logo className="h-9 w-9" fill="var(--logo-ink)" />
             </span>
             <span>
               <b className="block text-base font-bold">Didactika.org</b>
@@ -95,26 +82,9 @@ export default function Footer({ lang }: { lang: Lang }) {
             </span>
           </a>
 
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <ul className="flex flex-wrap gap-2">
-              {founders.map((person) => (
-                <li key={person.url}>
-                  <a
-                    href={person.url}
-                    title={`${person.name} · GitHub`}
-                    className="flex items-center gap-2.5 rounded-full border border-slate-200 bg-slate-50 py-1 pl-1 pr-4 transition-colors hover:border-teal-400 hover:bg-teal-50"
-                  >
-                    <img src={person.photo} alt="" width={32} height={32} className="h-8 w-8 rounded-full object-cover" />
-                    <span>
-                      <b className="block text-[13px] font-semibold leading-tight text-slate-900">{person.name}</b>
-                      <small className="block text-[11px] text-slate-500">{t.cofounder}</small>
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
+          {shown.length > 0 && (
             <div className="flex items-center gap-2.5">
-              {shown.length > 0 && <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-500">{t.collaborators}</span>}
+              <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-500">{t.collaborators}</span>
               <span className="flex items-center pl-1.5">
                 {shown.map((person) => (
                   <a key={person.login} href={person.url} title={person.login} aria-label={person.login} className="-ml-1.5 h-8 w-8 rounded-full ring-2 ring-white transition-transform hover:z-10 hover:-translate-y-0.5">
@@ -136,16 +106,14 @@ export default function Footer({ lang }: { lang: Lang }) {
                 <UserPlus className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
-          </div>
+          )}
 
           <nav aria-label="Didactika" className="flex flex-wrap gap-2">
-            {links.map(({ label, href, icon: Icon }) => (
-              <a key={href} href={href} className="inline-flex h-9 items-center gap-2 rounded-xl border border-slate-200 px-3 text-[13px] font-semibold text-slate-800 transition-colors hover:border-teal-400 hover:bg-teal-50">
-                <Icon className="h-4 w-4 text-slate-500" aria-hidden="true" /> {label}
-              </a>
-            ))}
-            <a href="https://github.com/didactika" className="inline-flex h-9 items-center gap-2 rounded-xl border border-slate-200 px-3 text-[13px] font-semibold text-slate-800 transition-colors hover:border-teal-400 hover:bg-teal-50">
-              <GithubMark className="h-4 w-4 text-slate-500" /> github.com/didactika
+            <a href={`${LANG_PATHS[lang]}resources/`} className={button}>
+              <LayoutGrid className="h-4 w-4 text-slate-500" aria-hidden="true" /> {t.resources}
+            </a>
+            <a href="https://github.com/didactika" className={button}>
+              <GithubMark className="h-4 w-4 text-slate-500" /> GitHub
             </a>
           </nav>
         </div>
@@ -155,7 +123,6 @@ export default function Footer({ lang }: { lang: Lang }) {
           <a href="https://ko-fi.com/didactika" rel="noopener" className="inline-flex items-center gap-1.5 text-slate-500 transition-colors hover:text-slate-900">
             <Heart className="h-3.5 w-3.5 text-rose-600" aria-hidden="true" /> {t.support}
           </a>
-          <span>{t.tagline}</span>
         </div>
       </div>
     </footer>

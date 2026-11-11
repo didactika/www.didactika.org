@@ -8,6 +8,8 @@ export const en: Dictionary = {
     about: 'About',
     docs: 'Documentation',
     language: 'Language',
+    languageFilter: 'Find a language',
+    theme: 'Switch between light and dark theme',
   },
   hero: {
     titleLine1: 'Learning',
@@ -28,6 +30,7 @@ export const en: Dictionary = {
     subtitle:
       'Open source repositories and tools built to high standards of performance, accessibility and modularity.',
     viewOnGithub: 'View on GitHub',
+    viewAll: 'See all resources',
     viewCodeOnGithub: 'View code on GitHub',
     viewOnMoodle: 'View in the official Moodle plugins directory',
     install: 'Install',
@@ -61,6 +64,13 @@ export const en: Dictionary = {
         "Computer engineer with a master's degree in cybersecurity and experience in Moodle, microservices and integrations with educational systems. Brings a technical approach that integrates applied security, design patterns and quality criteria into the development of solutions for educational platforms.",
     },
   },
+  resources: {
+    title: 'Didactika resources',
+    intro: 'Everything Didactika publishes, in one place.',
+    back: 'Back to home',
+    open: 'Open',
+    docs: 'Documentation',
+  },
   ecosystem: {
     title: { pre: 'Everything you ', highlight: 'need', post: ' to get started.' },
     subtitle: 'Documentation, the design system and the full list of what Didactika publishes.',
@@ -77,8 +87,6 @@ export const en: Dictionary = {
     collaborators: 'Collaborators',
     allCollaborators: 'All collaborators on GitHub',
     join: 'See everything we build and contribute',
-    docs: 'Documentation',
-    design: 'Design system',
     resources: 'Resources',
     support: 'Support Didactika',
     licence: 'Open source',

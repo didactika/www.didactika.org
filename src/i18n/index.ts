@@ -10,6 +10,9 @@ export const DEFAULT_LANG: Lang = 'es';
 
 export const dictionaries: Record<Lang, Dictionary> = { es, en };
 
+// El nombre de cada idioma en su propio idioma, para el menú de idiomas.
+export const LANG_NAMES: Record<Lang, string> = { es: 'Español', en: 'English' };
+
 // Cada idioma tiene su propio HTML de entrada (index.html y en/index.html)
 export const LANG_PATHS: Record<Lang, string> = { es: '/', en: '/en/' };
 

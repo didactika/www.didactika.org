@@ -12,3 +12,11 @@ docker compose down
 ```
 
 La página de recursos (`/resources/`) sale de `src/data/resources.json`; el pie, el mismo de la documentación, de `src/Footer.tsx`.
+
+## Añadir un idioma
+
+```
+node tools/add-language.mjs fr "Français"
+```
+
+Copia los textos en inglés a `src/i18n/fr.ts` (se traducen a mano), registra el idioma, crea `/fr/` y `/fr/resources/`, los añade al sitemap y a los `hreflang` de cada página y hace que quien tenga el navegador en ese idioma llegue a él. El menú de idiomas crece solo y, a partir de seis, ofrece un buscador. El tema claro y oscuro sale del sistema o de la elección guardada.

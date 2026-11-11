@@ -18,6 +18,14 @@
     <meta property="og:title" content="Recursos de Didactika" />
     <meta property="og:description" content="Todos los sitios, repositorios y servicios de Didactika: documentación, sistema de diseño, plugins de Moodle, paquetes npm y código abierto." />
     <meta property="og:image" content="https://didactika.org/og-image.png" />
+    <script>
+      (function () {
+        var theme = null;
+        try { theme = localStorage.getItem('didactika-theme'); } catch (error) { /* no storage */ }
+        if (theme !== 'light' && theme !== 'dark') { theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

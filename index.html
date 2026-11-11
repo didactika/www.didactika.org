@@ -73,6 +73,14 @@
         "sameAs": ["https://github.com/didactika"]
       }
     </script>
+    <script>
+      (function () {
+        var theme = null;
+        try { theme = localStorage.getItem('didactika-theme'); } catch (error) { /* no storage */ }
+        if (theme !== 'light' && theme !== 'dark') { theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

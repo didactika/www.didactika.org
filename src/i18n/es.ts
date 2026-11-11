@@ -7,6 +7,8 @@ export const es = {
     about: 'Acerca de',
     docs: 'Documentación',
     language: 'Idioma',
+    languageFilter: 'Buscar un idioma',
+    theme: 'Cambiar entre tema claro y oscuro',
   },
   hero: {
     titleLine1: 'Tecnología',
@@ -27,6 +29,7 @@ export const es = {
     subtitle:
       'Repositorios y herramientas de código abierto construidos con estándares de rendimiento, accesibilidad y modularidad.',
     viewOnGithub: 'Ver en GitHub',
+    viewAll: 'Ver todos los recursos',
     viewCodeOnGithub: 'Ver código en GitHub',
     viewOnMoodle: 'Ver en el directorio oficial de plugins de Moodle',
     install: 'Instalar',
@@ -60,6 +63,13 @@ export const es = {
         'Ingeniero informático y máster en ciberseguridad, con experiencia en Moodle, microservicios e integraciones con sistemas educativos. Su enfoque técnico integra seguridad aplicada, patrones de diseño y criterios de calidad en el desarrollo de soluciones para plataformas educativas.',
     },
   },
+  resources: {
+    title: 'Recursos de Didactika',
+    intro: 'Todo lo que Didactika publica, en un único lugar.',
+    back: 'Volver al inicio',
+    open: 'Abrir',
+    docs: 'Documentación',
+  },
   ecosystem: {
     title: { pre: 'Todo lo que ', highlight: 'necesita', post: ' para empezar.' },
     subtitle: 'Documentación, sistema de diseño y el listado completo de lo que Didactika publica.',
@@ -76,8 +86,6 @@ export const es = {
     collaborators: 'Colaboradores',
     allCollaborators: 'Todos los colaboradores en GitHub',
     join: 'Ver todo lo que construimos y aportamos',
-    docs: 'Documentación',
-    design: 'Sistema de diseño',
     resources: 'Recursos',
     support: 'Apoya a Didactika',
     licence: 'Código abierto',
