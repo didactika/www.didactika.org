@@ -8,7 +8,7 @@
     <title>Didactika — Tecnología Didáctica y Software Educativo Open Source</title>
     <meta
       name="description"
-      content="Didactika desarrolla software open source que impulsa el aprendizaje: plugins para Moodle, paquetes NPM y herramientas para entornos virtuales de aprendizaje."
+      content="Didactika desarrolla software open source que impulsa el aprendizaje: plugins, librerías y herramientas para el aprendizaje digital."
     />
     <meta
       name="keywords"
@@ -41,7 +41,7 @@
     />
     <meta
       property="og:description"
-      content="Software open source que impulsa el aprendizaje: plugins para Moodle, paquetes NPM y herramientas para entornos virtuales de aprendizaje."
+      content="Software open source que impulsa el aprendizaje: plugins, librerías y herramientas para el aprendizaje digital."
     />
     <meta property="og:image" content="https://didactika.org/og-image.png" />
     <meta property="og:image:width" content="1200" />
@@ -56,7 +56,7 @@
     />
     <meta
       name="twitter:description"
-      content="Software open source que impulsa el aprendizaje: plugins para Moodle, paquetes NPM y herramientas para entornos virtuales de aprendizaje."
+      content="Software open source que impulsa el aprendizaje: plugins, librerías y herramientas para el aprendizaje digital."
     />
     <meta name="twitter:image" content="https://didactika.org/og-image.png" />
 
@@ -69,9 +69,17 @@
         "alternateName": "Didactika.org",
         "url": "https://didactika.org/",
         "logo": "https://didactika.org/android-chrome-512x512.png",
-        "description": "Laboratorio de tecnología e innovación educativa que crea software open source para impulsar el aprendizaje digital: plugins para Moodle, paquetes NPM y herramientas para entornos virtuales de aprendizaje.",
+        "description": "Laboratorio de tecnología e innovación educativa que crea software open source para impulsar el aprendizaje digital: plugins, librerías y herramientas.",
         "sameAs": ["https://github.com/didactika"]
       }
+    </script>
+    <script>
+      (function () {
+        var theme = null;
+        try { theme = localStorage.getItem('didactika-theme'); } catch (error) { /* no storage */ }
+        if (theme !== 'light' && theme !== 'dark') { theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+        document.documentElement.dataset.theme = theme;
+      })();
     </script>
   </head>
   <body>

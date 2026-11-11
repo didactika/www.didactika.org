@@ -1,0 +1,385 @@
+[
+  {
+    "id": "documentation",
+    "title": {
+      "en": "Documentation",
+      "es": "Documentación"
+    },
+    "description": {
+      "en": "Guides, manuals and technical reference, and the design system behind the plugins.",
+      "es": "Guías, manuales y referencia técnica, y el sistema de diseño de los plugins."
+    },
+    "items": [
+      {
+        "name": {
+          "en": "Didactika Docs",
+          "es": "Didactika Docs"
+        },
+        "summary": {
+          "en": "The official documentation of the plugins and libraries of Didactika, by version and language.",
+          "es": "La documentación oficial de los plugins y las librerías de Didactika, por versión e idioma."
+        },
+        "url": "https://docs.didactika.org/",
+        "host": "docs.didactika.org",
+        "icon": "book"
+      },
+      {
+        "name": {
+          "en": "Moodle Design System",
+          "es": "Moodle Design System"
+        },
+        "summary": {
+          "en": "Components, tokens and guidelines for the Moodle plugins of Didactika.",
+          "es": "Componentes, variables y criterios de diseño de los plugins de Moodle de Didactika."
+        },
+        "url": "https://moodle-design.didactika.org/",
+        "host": "moodle-design.didactika.org",
+        "icon": "palette"
+      }
+    ]
+  },
+  {
+    "id": "plugins",
+    "title": {
+      "en": "Moodle plugins",
+      "es": "Plugins de Moodle"
+    },
+    "description": {
+      "en": "Every public plugin. Those in the Moodle directory open there; the others open their repository.",
+      "es": "Todos los plugins públicos. Los del directorio de Moodle se abren allí; los demás abren su repositorio."
+    },
+    "items": [
+      {
+        "name": {
+          "en": "Delegate account",
+          "es": "Cuentas delegadas"
+        },
+        "summary": {
+          "en": "Moodle local plugin for granting authorised users access to specific accounts through Moodle's built-in Log in as workflow.",
+          "es": "Plugin local de Moodle para otorgar a usuarios autorizados acceso a cuentas específicas, usando la funcionalidad de Moodle de \"Iniciar sesión como\"."
+        },
+        "url": "https://marketplace.moodle.com/plugins/local_delegateaccount",
+        "host": "marketplace.moodle.com",
+        "icon": "plug",
+        "badge": {
+          "en": "Moodle directory",
+          "es": "Directorio de Moodle"
+        },
+        "code": "local_delegateaccount",
+        "docs": {
+          "es": "https://docs.didactika.org/es/plugins/local-delegateaccount/",
+          "en": "https://docs.didactika.org/en/plugins/local-delegateaccount/"
+        }
+      },
+      {
+        "name": {
+          "en": "Extended navigation",
+          "es": "Navegación ampliada"
+        },
+        "summary": {
+          "en": "Shape the primary navigation and the user menu, and keep users on the pages meant for them.",
+          "es": "Da forma a la navegación principal y al menú de usuario, y mantiene a las personas en las páginas que les corresponden."
+        },
+        "url": "https://github.com/didactika/moodle-local_extendednav",
+        "host": "github.com",
+        "icon": "plug",
+        "badge": {
+          "en": "GitHub",
+          "es": "GitHub"
+        },
+        "code": "local_extendednav"
+      },
+      {
+        "name": {
+          "en": "OpenAPI",
+          "es": "OpenAPI"
+        },
+        "summary": {
+          "en": "Publishes the web service catalog of the site as an OpenAPI 3.1 document, with a bundled Swagger UI viewer and four independent ways to control who may read it.",
+          "es": "Publica el catálogo de servicios web del sitio como un documento OpenAPI 3.1, con un visor Swagger UI incluido y cuatro formas independientes de controlar quién puede leerlo."
+        },
+        "url": "https://github.com/didactika/moodle-tool_openapi",
+        "host": "github.com",
+        "icon": "plug",
+        "badge": {
+          "en": "GitHub",
+          "es": "GitHub"
+        },
+        "code": "tool_openapi"
+      },
+      {
+        "name": {
+          "en": "Service manager",
+          "es": "Gestor de servicios"
+        },
+        "summary": {
+          "en": "Provisions and manages web services from version-controlled YAML schemas: it creates the service user, role, capabilities, external service and token.",
+          "es": "Aprovisiona y gestiona servicios web a partir de esquemas YAML versionados: crea el usuario del servicio, el rol, las capacidades, el servicio externo y el token."
+        },
+        "url": "https://marketplace.moodle.com/plugins/local_servicemanager",
+        "host": "marketplace.moodle.com",
+        "icon": "plug",
+        "badge": {
+          "en": "Moodle directory",
+          "es": "Directorio de Moodle"
+        },
+        "code": "local_servicemanager"
+      },
+      {
+        "name": {
+          "en": "Icon restyle",
+          "es": "Estilo de iconos"
+        },
+        "summary": {
+          "en": "Restyles the icons of the whole site, a category, a course or an activity from one visual designer, with no theme changes and no code.",
+          "es": "Cambia el estilo de los iconos de todo el sitio, de una categoría, un curso o una actividad desde un único diseñador visual, sin tocar el tema ni escribir código."
+        },
+        "url": "https://github.com/didactika/moodle-local_iconrestyle",
+        "host": "github.com",
+        "icon": "plug",
+        "badge": {
+          "en": "GitHub",
+          "es": "GitHub"
+        },
+        "code": "local_iconrestyle"
+      },
+      {
+        "name": {
+          "en": "Autograder",
+          "es": "Autocalificador"
+        },
+        "summary": {
+          "en": "Automatically grades the completed activities that a teacher has not graded after the deadline.",
+          "es": "Califica automáticamente las actividades completadas que el docente no ha calificado pasada la fecha límite."
+        },
+        "url": "https://marketplace.moodle.com/plugins/local_autograder",
+        "host": "marketplace.moodle.com",
+        "icon": "plug",
+        "badge": {
+          "en": "Moodle directory",
+          "es": "Directorio de Moodle"
+        },
+        "code": "local_autograder"
+      },
+      {
+        "name": {
+          "en": "Autograder report",
+          "es": "Informe del autocalificador"
+        },
+        "summary": {
+          "en": "Reviews what the Autograder graded, what is pending and what failed, per activity, course or site.",
+          "es": "Revisa lo que calificó el Autocalificador, lo que está pendiente y lo que falló, por actividad, curso o sitio."
+        },
+        "url": "https://marketplace.moodle.com/plugins/report_autograder",
+        "host": "marketplace.moodle.com",
+        "icon": "plug",
+        "badge": {
+          "en": "Moodle directory",
+          "es": "Directorio de Moodle"
+        },
+        "code": "report_autograder"
+      },
+      {
+        "name": {
+          "en": "FileBank",
+          "es": "FileBank"
+        },
+        "summary": {
+          "en": "Organises the public files of related courses into a reusable library, with profiles that say which courses belong together.",
+          "es": "Organiza los archivos públicos de cursos relacionados en una biblioteca reutilizable, con perfiles que indican qué cursos van juntos."
+        },
+        "url": "https://github.com/didactika/moodle-local_filebank",
+        "host": "github.com",
+        "icon": "plug",
+        "badge": {
+          "en": "GitHub",
+          "es": "GitHub"
+        },
+        "code": "local_filebank"
+      },
+      {
+        "name": {
+          "en": "FileBank repository",
+          "es": "Repositorio FileBank"
+        },
+        "summary": {
+          "en": "Offers the FileBank library inside the file picker, so teachers can pick files and whole folders from related courses.",
+          "es": "Ofrece la biblioteca de FileBank dentro del selector de archivos, para que los docentes elijan archivos y carpetas enteras de cursos relacionados."
+        },
+        "url": "https://github.com/didactika/moodle-repository_filebank",
+        "host": "github.com",
+        "icon": "plug",
+        "badge": {
+          "en": "GitHub",
+          "es": "GitHub"
+        },
+        "code": "repository_filebank"
+      },
+      {
+        "name": {
+          "en": "Multi-picker",
+          "es": "Selector múltiple"
+        },
+        "summary": {
+          "en": "Adds multiple selection of files and folders, with a review before the import, to the Server files repository.",
+          "es": "Añade la selección múltiple de archivos y carpetas, con una revisión antes de importar, al repositorio de archivos del servidor."
+        },
+        "url": "https://github.com/didactika/moodle-repository_multipicker",
+        "host": "github.com",
+        "icon": "plug",
+        "badge": {
+          "en": "GitHub",
+          "es": "GitHub"
+        },
+        "code": "repository_multipicker"
+      }
+    ]
+  },
+  {
+    "id": "packages",
+    "title": {
+      "en": "npm packages",
+      "es": "Paquetes npm"
+    },
+    "description": {
+      "en": "Libraries for developers.",
+      "es": "Librerías para desarrolladores."
+    },
+    "items": [
+      {
+        "name": {
+          "en": "prisma-entity-framework",
+          "es": "prisma-entity-framework"
+        },
+        "summary": {
+          "en": "Layer over Prisma that adds Active Record-style entities, advanced queries and performance utilities for working with database models in a more comfortable and structured way in TypeScript.",
+          "es": "Capa sobre Prisma que añade entidades estilo Active Record, consultas avanzadas y utilidades de rendimiento para trabajar con modelos de base de datos de forma más cómoda y estructurada en TypeScript."
+        },
+        "url": "https://www.npmjs.com/package/@didactika/prisma-entity",
+        "host": "npmjs.com",
+        "icon": "package",
+        "badge": {
+          "en": "npm",
+          "es": "npm"
+        },
+        "code": "@didactika/prisma-entity",
+        "repo": "https://github.com/didactika/prisma-entity"
+      },
+      {
+        "name": {
+          "en": "@didactika/prisma-autoread",
+          "es": "@didactika/prisma-autoread"
+        },
+        "summary": {
+          "en": "Package for Express and Prisma that automates read/list endpoints, converting URL parameters into Prisma filters, searches, pagination, sorting and includes with validation based on the schema.",
+          "es": "Paquete para Express y Prisma que automatiza endpoints de lectura/listado, convirtiendo parámetros de URL en filtros, búsquedas, paginación, ordenamiento e includes de Prisma con validación basada en el schema."
+        },
+        "url": "https://www.npmjs.com/package/@didactika/prisma-autoread",
+        "host": "npmjs.com",
+        "icon": "package",
+        "badge": {
+          "en": "npm",
+          "es": "npm"
+        },
+        "code": "@didactika/prisma-autoread",
+        "repo": "https://github.com/didactika/prisma-autoread"
+      },
+      {
+        "name": {
+          "en": "@resilientmq/core",
+          "es": "@resilientmq/core"
+        },
+        "summary": {
+          "en": "Node.js library that allows publishing and consuming events in RabbitMQ with resilience logic, automatic retries, DLQ, middleware and persistence of the state of each message.",
+          "es": "Librería para Node.js que permite publicar y consumir eventos en RabbitMQ con lógica de resiliencia, reintentos automáticos, DLQ, middleware y persistencia del estado de cada mensaje."
+        },
+        "url": "https://www.npmjs.com/package/@resilientmq/core",
+        "host": "npmjs.com",
+        "icon": "package",
+        "badge": {
+          "en": "npm",
+          "es": "npm"
+        },
+        "code": "@resilientmq/core",
+        "repo": "https://github.com/resilientmq/core"
+      },
+      {
+        "name": {
+          "en": "@didactika/moodle-client",
+          "es": "@didactika/moodle-client"
+        },
+        "summary": {
+          "en": "TypeScript client that builds and sends authenticated requests to Moodle's web services API, handling tokens and HTTP methods.",
+          "es": "Cliente TypeScript que construye y envía peticiones autenticadas a la API de servicios web de Moodle, gestionando los tokens y los métodos HTTP."
+        },
+        "url": "https://www.npmjs.com/package/@didactika/moodle-client",
+        "host": "npmjs.com",
+        "icon": "package",
+        "badge": {
+          "en": "npm",
+          "es": "npm"
+        },
+        "code": "@didactika/moodle-client",
+        "repo": "https://github.com/didactika/moodle-client"
+      },
+      {
+        "name": {
+          "en": "@didactika/moodle-client-schemas",
+          "es": "@didactika/moodle-client-schemas"
+        },
+        "summary": {
+          "en": "Extracts strict, typed JSON Schemas and parameter contracts of the Moodle web services, for every version of Moodle, with no running Moodle instance.",
+          "es": "Extrae esquemas JSON y contratos de parámetros tipados de los servicios web de Moodle, para cualquier versión, sin una instancia de Moodle en ejecución."
+        },
+        "url": "https://www.npmjs.com/package/@didactika/moodle-client-schemas",
+        "host": "npmjs.com",
+        "icon": "package",
+        "badge": {
+          "en": "npm",
+          "es": "npm"
+        },
+        "code": "@didactika/moodle-client-schemas",
+        "repo": "https://github.com/didactika/moodle-client-schemas"
+      }
+    ]
+  },
+  {
+    "id": "community",
+    "title": {
+      "en": "Code and community",
+      "es": "Código y comunidad"
+    },
+    "description": {
+      "en": "The code is open: read it, use it and contribute.",
+      "es": "El código es abierto: puede consultarlo, usarlo y contribuir."
+    },
+    "items": [
+      {
+        "name": {
+          "en": "GitHub",
+          "es": "GitHub"
+        },
+        "summary": {
+          "en": "Every repository of Didactika, with its issues and releases.",
+          "es": "Todos los repositorios de Didactika, con sus incidencias y sus versiones."
+        },
+        "url": "https://github.com/didactika",
+        "host": "github.com/didactika",
+        "icon": "code"
+      },
+      {
+        "name": {
+          "en": "Support Didactika",
+          "es": "Apoyar a Didactika"
+        },
+        "summary": {
+          "en": "Help keep the open source software of Didactika going.",
+          "es": "Ayude a mantener el software abierto de Didactika."
+        },
+        "url": "https://ko-fi.com/didactika",
+        "host": "ko-fi.com",
+        "icon": "heart"
+      }
+    ]
+  }
+]

@@ -1,0 +1,23 @@
+# The site of didactika.org, served by the development server of Vite, to see a change before it is deployed:
+#
+#   docker compose up -d      then open http://localhost:4322/  (Spanish) and http://localhost:4322/en/  (English)
+#   docker compose logs -f    to see what the server says
+#   docker compose down       to stop it
+name: didactika-www
+
+services:
+  site:
+    image: node:22
+    working_dir: /app
+    ports:
+      - '4322:4322'
+    environment:
+      CHOKIDAR_USEPOLLING: '1'
+    volumes:
+      - .:/app
+      # The dependencies are installed for Linux inside the container; the ones of this machine are not used.
+      - node_modules:/app/node_modules
+    command: sh -c "npm ci --no-audit --no-fund && npm run dev -- --host 0.0.0.0 --port 4322"
+
+volumes:
+  node_modules:
