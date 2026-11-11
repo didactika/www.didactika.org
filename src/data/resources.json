@@ -1,0 +1,124 @@
+[
+  {
+    "id": "documentation",
+    "title": { "es": "Documentación", "en": "Documentation" },
+    "description": {
+      "es": "Guías, manuales y referencia técnica de cada producto, por versión.",
+      "en": "Guides, manuals and technical reference for every product, by version."
+    },
+    "items": [
+      {
+        "name": { "es": "Didactika Docs", "en": "Didactika Docs" },
+        "summary": {
+          "es": "La documentación oficial de los plugins y las librerías de Didactika.",
+          "en": "The official documentation of the plugins and libraries of Didactika."
+        },
+        "url": "https://docs.didactika.org/",
+        "host": "docs.didactika.org",
+        "icon": "book"
+      },
+      {
+        "name": { "es": "Moodle Design System", "en": "Moodle Design System" },
+        "summary": {
+          "es": "Componentes, variables y criterios de diseño de los plugins de Moodle de Didactika.",
+          "en": "Components, tokens and design guidelines for the Moodle plugins of Didactika."
+        },
+        "url": "https://moodle-design.didactika.org/",
+        "host": "moodle-design.didactika.org",
+        "icon": "palette"
+      }
+    ]
+  },
+  {
+    "id": "plugins",
+    "title": { "es": "Plugins de Moodle", "en": "Moodle plugins" },
+    "description": {
+      "es": "Publicados en el directorio oficial de plugins de Moodle.",
+      "en": "Published in the official Moodle plugins directory."
+    },
+    "items": [
+      {
+        "name": { "es": "Service Manager", "en": "Service Manager" },
+        "summary": { "es": "local_servicemanager", "en": "local_servicemanager" },
+        "url": "https://moodle.org/plugins/local_servicemanager",
+        "host": "moodle.org",
+        "icon": "plug"
+      },
+      {
+        "name": { "es": "Icon Restyle", "en": "Icon Restyle" },
+        "summary": { "es": "local_iconrestyle", "en": "local_iconrestyle" },
+        "url": "https://moodle.org/plugins/local_iconrestyle",
+        "host": "moodle.org",
+        "icon": "plug"
+      },
+      {
+        "name": { "es": "Autograder", "en": "Autograder" },
+        "summary": { "es": "local_autograder y report_autograder", "en": "local_autograder and report_autograder" },
+        "url": "https://moodle.org/plugins/local_autograder",
+        "host": "moodle.org",
+        "icon": "plug"
+      }
+    ]
+  },
+  {
+    "id": "packages",
+    "title": { "es": "Paquetes npm", "en": "npm packages" },
+    "description": {
+      "es": "Librerías para desarrolladores, publicadas bajo el ámbito @didactika.",
+      "en": "Libraries for developers, published under the @didactika scope."
+    },
+    "items": [
+      {
+        "name": { "es": "moodle-client", "en": "moodle-client" },
+        "summary": { "es": "@didactika/moodle-client", "en": "@didactika/moodle-client" },
+        "url": "https://www.npmjs.com/package/@didactika/moodle-client",
+        "host": "npmjs.com",
+        "icon": "package"
+      },
+      {
+        "name": { "es": "prisma-entity", "en": "prisma-entity" },
+        "summary": { "es": "@didactika/prisma-entity", "en": "@didactika/prisma-entity" },
+        "url": "https://www.npmjs.com/package/@didactika/prisma-entity",
+        "host": "npmjs.com",
+        "icon": "package"
+      },
+      {
+        "name": { "es": "prisma-autoread", "en": "prisma-autoread" },
+        "summary": { "es": "@didactika/prisma-autoread", "en": "@didactika/prisma-autoread" },
+        "url": "https://www.npmjs.com/package/@didactika/prisma-autoread",
+        "host": "npmjs.com",
+        "icon": "package"
+      }
+    ]
+  },
+  {
+    "id": "community",
+    "title": { "es": "Código y comunidad", "en": "Code and community" },
+    "description": {
+      "es": "El código es abierto: puede consultarlo, usarlo y contribuir.",
+      "en": "The code is open: you can read it, use it and contribute."
+    },
+    "items": [
+      {
+        "name": { "es": "GitHub", "en": "GitHub" },
+        "summary": {
+          "es": "Todos los repositorios de Didactika, con sus incidencias y sus versiones.",
+          "en": "Every repository of Didactika, with its issues and releases."
+        },
+        "url": "https://github.com/didactika",
+        "host": "github.com/didactika",
+        "icon": "code"
+      },
+      {
+        "name": { "es": "Apoyar a Didactika", "en": "Support Didactika" },
+        "summary": {
+          "es": "Ayude a mantener el software abierto de Didactika.",
+          "en": "Help keep the open source software of Didactika going."
+        },
+        "url": "https://ko-fi.com/didactika",
+        "host": "ko-fi.com",
+        "icon": "heart"
+      }
+    ]
+  }
+]

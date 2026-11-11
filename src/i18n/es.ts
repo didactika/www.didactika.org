@@ -59,6 +59,7 @@ export const es = {
   },
   footer: {
     tagline: 'Impulsando la educación a través del código abierto.',
+    resources: 'Recursos',
   },
 };
 

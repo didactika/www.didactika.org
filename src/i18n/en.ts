@@ -60,5 +60,6 @@ export const en: Dictionary = {
   },
   footer: {
     tagline: 'Driving education through open source.',
+    resources: 'Resources',
   },
 };

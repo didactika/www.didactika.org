@@ -19,4 +19,20 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://didactika.org/resources/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://didactika.org/resources/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://didactika.org/en/resources/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://didactika.org/en/resources/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://didactika.org/en/resources/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://didactika.org/resources/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://didactika.org/en/resources/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://didactika.org/en/resources/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>

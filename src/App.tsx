@@ -49,7 +49,7 @@ const Linkedin = ({ className = "" }: { className?: string }) => (
 );
 
 // Componente Logo restaurado con su trazado de vectores original completo y sin truncar
-const Logo = ({ className = "h-full w-full", fill = "#00555a" }) => (
+export const Logo = ({ className = "h-full w-full", fill = "#00555a" }) => (
   <svg 
     xmlns="http://www.w3.org/2000/svg"
     viewBox="7.5 -90 800 800"
@@ -655,6 +655,7 @@ export default function App({ lang }: { lang: Lang }) {
             <p>{t.footer.tagline}</p>
           </div>
           <div className="flex gap-6">
+            <a href={`${LANG_PATHS[lang]}resources/`} className="hover:text-slate-900 transition-colors">{t.footer.resources}</a>
             <a href="https://github.com/didactika" className="hover:text-slate-900 transition-colors">GitHub</a>
           </div>
         </div>
