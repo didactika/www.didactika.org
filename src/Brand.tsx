@@ -9,7 +9,7 @@ export function BrandMark({ size = 'md', tag }: { size?: 'sm' | 'md' | 'lg'; tag
   const handle = 'absolute h-1.5 w-1.5 rounded-[1.5px] border border-teal-700 bg-white';
   return (
     <span className={`relative flex shrink-0 items-center justify-center bg-white shadow-[0_0_0_1px_var(--color-slate-200),0_2px_8px_rgb(0_85_90/18%)] ${box}`} aria-hidden="true">
-      <Logo className="h-[74%] w-[74%]" fill="#00555a" />
+      <Logo className="h-[74%] w-[74%]" fill="var(--logo-ink)" />
       <i className={`${handle} -left-[3px] -top-[3px]`} />
       <i className={`${handle} -right-[3px] -top-[3px]`} />
       <i className={`${handle} -bottom-[3px] -left-[3px]`} />
