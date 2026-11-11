@@ -1,6 +1,6 @@
 import { ArrowLeft, BookOpen, Code, ExternalLink, Heart, Package, Palette, Plug } from 'lucide-react';
 import type { ComponentType } from 'react';
-import { Logo } from './App';
+import { BrandMark } from './Brand';
 import { LanguageMenu, ThemeToggle } from './Controls';
 import Footer from './Footer';
 import resources from './data/resources.json';
@@ -47,9 +47,7 @@ export default function Resources({ lang }: { lang: Lang }) {
       <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex h-20 max-w-5xl items-center justify-between gap-3 px-4 sm:px-6">
           <a href={LANG_PATHS[lang]} className="flex items-center gap-3 group" aria-label={t.resources.back}>
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm transition-all group-hover:border-teal-400">
-              <Logo className="h-8 w-8" fill="var(--logo-ink)" />
-            </span>
+            <BrandMark />
             <span className="text-xl font-bold tracking-tighter text-slate-900 sm:text-2xl max-[420px]:hidden">
               Didactika<span className="font-light text-teal-600">.org</span>
             </span>
@@ -65,7 +63,8 @@ export default function Resources({ lang }: { lang: Lang }) {
         <a href={LANG_PATHS[lang]} className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition-colors hover:text-teal-700">
           <ArrowLeft className="h-4 w-4" aria-hidden="true" /> {t.resources.back}
         </a>
-        <h1 className="mt-6 text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">{t.resources.title}</h1>
+        <span className="eyebrow mt-8 block">{t.resources.eyebrow}</span>
+        <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">{t.resources.title}</h1>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-500 sm:text-lg">{t.resources.intro}</p>
 
         <nav aria-label={t.resources.title} className="mt-8 flex flex-wrap gap-2">

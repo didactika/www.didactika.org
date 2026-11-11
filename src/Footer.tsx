@@ -1,6 +1,6 @@
 import { Heart, LayoutGrid, UserPlus } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Logo } from './App';
+import { BrandMark } from './Brand';
 import { LANG_PATHS, dictionaries } from './i18n';
 import type { Lang } from './i18n';
 
@@ -73,9 +73,7 @@ export default function Footer({ lang }: { lang: Lang }) {
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-6">
           <a href={LANG_PATHS[lang]} className="flex max-w-md items-center gap-3 text-slate-900">
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm">
-              <Logo className="h-9 w-9" fill="var(--logo-ink)" />
-            </span>
+            <BrandMark size="lg" />
             <span>
               <b className="block text-base font-bold">Didactika.org</b>
               <span className="block text-sm leading-snug text-slate-500">{t.about}</span>

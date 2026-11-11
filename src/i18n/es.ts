@@ -14,7 +14,8 @@ export const es = {
     titleLine1: 'Tecnología',
     titleHighlight: 'Didáctica.',
     subtitle:
-      'Desarrollamos software que impulsa el aprendizaje. Plugins para Moodle, paquetes NPM y herramientas de código abierto para entornos virtuales de aprendizaje.',
+      'Desarrollamos software de código abierto que impulsa el aprendizaje: plugins, librerías y herramientas para entornos digitales de aprendizaje.',
+    pill: 'Código abierto · Tecnología educativa',
     cta: 'Explorar Proyectos',
     ctaDocs: 'Leer la documentación',
     alt: {
@@ -46,7 +47,7 @@ export const es = {
     ],
     metrics: {
       openSource: 'Código Abierto',
-      moodleSupport: 'Soporte Moodle',
+      moodleSupport: 'Tecnología educativa',
       licensing: 'Licenciamiento Libre',
     },
   },
@@ -66,6 +67,7 @@ export const es = {
   resources: {
     title: 'Recursos de Didactika',
     intro: 'Todo lo que Didactika publica, en un único lugar.',
+    eyebrow: 'Didactika.org / Recursos',
     back: 'Volver al inicio',
     open: 'Abrir',
     docs: 'Documentación',
@@ -75,12 +77,12 @@ export const es = {
     subtitle: 'Documentación, sistema de diseño y el listado completo de lo que Didactika publica.',
     items: {
       docs: { title: 'Documentación', text: 'Guías de instalación, manuales de uso y referencia técnica de cada plugin y librería, por versión y en español e inglés.', cta: 'Abrir la documentación' },
-      design: { title: 'Sistema de diseño', text: 'Los componentes, las variables y los criterios que dan a todos los plugins de Moodle de Didactika el mismo aspecto.', cta: 'Ver el sistema de diseño' },
+      design: { title: 'Sistema de diseño', text: 'Los componentes, las variables y los criterios que dan a todos los productos de Didactika el mismo aspecto.', cta: 'Ver el sistema de diseño' },
       resources: { title: 'Todos los recursos', text: 'Cada sitio, repositorio, paquete y servicio de Didactika en un único listado.', cta: 'Ver los recursos' },
     },
   },
   footer: {
-    about: 'Software educativo de código abierto: plugins para Moodle, paquetes npm y herramientas para entornos virtuales de aprendizaje.',
+    about: 'Software educativo de código abierto: plugins, librerías y herramientas para el aprendizaje digital.',
     tagline: 'Impulsando la educación a través del código abierto.',
     cofounder: 'Cofundador',
     collaborators: 'Colaboradores',

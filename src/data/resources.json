@@ -52,7 +52,7 @@
       {
         "name": {
           "en": "Delegate account",
-          "es": "Cuenta delegada"
+          "es": "Cuentas delegadas"
         },
         "summary": {
           "en": "Moodle local plugin for granting authorised users access to specific accounts through Moodle's built-in Log in as workflow.",

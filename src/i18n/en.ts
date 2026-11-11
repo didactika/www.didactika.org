@@ -15,7 +15,8 @@ export const en: Dictionary = {
     titleLine1: 'Learning',
     titleHighlight: 'Technology.',
     subtitle:
-      'We build software that drives learning. Moodle plugins, NPM packages and open source tools for virtual learning environments.',
+      'We build open source software that drives learning: plugins, libraries and tools for digital learning environments.',
+    pill: 'Open source · Educational technology',
     cta: 'Explore Projects',
     ctaDocs: 'Read the documentation',
     alt: {
@@ -47,7 +48,7 @@ export const en: Dictionary = {
     ],
     metrics: {
       openSource: 'Open Source',
-      moodleSupport: 'Moodle Support',
+      moodleSupport: 'Educational Technology',
       licensing: 'Free Licensing',
     },
   },
@@ -67,6 +68,7 @@ export const en: Dictionary = {
   resources: {
     title: 'Didactika resources',
     intro: 'Everything Didactika publishes, in one place.',
+    eyebrow: 'Didactika.org / Resources',
     back: 'Back to home',
     open: 'Open',
     docs: 'Documentation',
@@ -76,12 +78,12 @@ export const en: Dictionary = {
     subtitle: 'Documentation, the design system and the full list of what Didactika publishes.',
     items: {
       docs: { title: 'Documentation', text: 'Installation guides, user manuals and technical reference for every plugin and library, by version and in English and Spanish.', cta: 'Open the documentation' },
-      design: { title: 'Design system', text: 'The components, tokens and guidelines that give every Moodle plugin of Didactika the same look.', cta: 'See the design system' },
+      design: { title: 'Design system', text: 'The components, tokens and guidelines that give every product of Didactika the same look.', cta: 'See the design system' },
       resources: { title: 'All resources', text: 'Every site, repository, package and service of Didactika in a single list.', cta: 'See the resources' },
     },
   },
   footer: {
-    about: 'Open source educational software: Moodle plugins, npm packages and tools for virtual learning environments.',
+    about: 'Open source educational software: plugins, libraries and tools for digital learning.',
     tagline: 'Driving education through open source.',
     cofounder: 'Co-founder',
     collaborators: 'Collaborators',

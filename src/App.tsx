@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useRef } from 'react';
+import { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 import {
   BookOpen, Package, Menu, X, Palette, LayoutGrid,
@@ -19,6 +19,7 @@ import photoHector from './assets/hector-pp.jpg';
 // Datos de proyectos (externalizados a JSON)
 import projectsData from './data/projects.json';
 
+import { BrandMark } from './Brand';
 import Footer from './Footer';
 import { LanguageMenu, ThemeToggle } from './Controls';
 import { LANG_PATHS, DEFAULT_LANG, dictionaries } from './i18n';
@@ -88,62 +89,69 @@ export default function App({ lang }: { lang: Lang }) {
 
   useLayoutEffect(() => {
     let rafId = 0;
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Desplazamientos base del escenario, responsivos. Los valores de desktop
-    // están calibrados para el escenario alto (600px). En pantallas muy pequeñas
-    // el escenario mide solo 300px, así que reducimos el desplazamiento vertical
-    // para que la ilustración no se pegue al botón ni deje hueco debajo.
-    let booksX = 120, booksY = -110, laptopX = 20, laptopY = -95;
-
+    // How far each layer travels. On a phone the scene is short and sits right under the button, so nothing travels up into the text.
+    let booksX = 120, booksY = -60, laptopX = 20, laptopY = -40, reach = 1;
     const computeLayout = () => {
       const w = window.innerWidth;
-      const isMobile = w < 768; // controla el desplazamiento horizontal
-      const small = w < 640;    // aquí el escenario baja a h-[300px]
-      booksX = isMobile ? 40 : 120;
-      laptopX = isMobile ? 10 : 20;
-      booksY = small ? -70 : -110;
-      laptopY = small ? -60 : -95;
+      const isMobile = w < 768;
+      booksX = isMobile ? 36 : 120;
+      laptopX = isMobile ? 8 : 20;
+      booksY = isMobile ? 6 : -60;
+      laptopY = isMobile ? 12 : -40;
+      reach = isMobile ? 0.45 : 1;
     };
     computeLayout();
 
-    // Un único bucle rAF gobierna TODO el escenario: parallax (según scroll)
-    // + flotación (onda seno). Es el mismo mecanismo del scroll (transform por
-    // JS), que ya va fluido, en vez de una animación CSS @keyframes aparte.
-    const OMEGA = (Math.PI * 2) / 6; // periodo de 6s, como el float original
+    // A single loop drives the scene: the scroll is eased so the layers glide instead of jumping, and each layer floats at its own pace.
+    let scroll = window.scrollY;
 
     const render = (now: number) => {
-      const y = window.scrollY;
-
-      // Solo hacemos trabajo mientras el hero está a la vista.
-      if (y < window.innerHeight) {
-        const phase = Math.sin(now * 0.001 * OMEGA);
-        const floatBooks = -15 * phase; // sube
-        const floatUI = 15 * phase;     // baja (contrafase)
+      const target = window.scrollY;
+      if (target < window.innerHeight * 1.2) {
+        scroll += (target - scroll) * 0.12;
+        const time = calm ? 0 : now * 0.001;
+        const wave = (period: number, offset = 0) => Math.sin(((time + offset) * Math.PI * 2) / period);
 
         if (deskRef.current)
-          deskRef.current.style.transform = `translate3d(0, ${y * 0.08}px, 0)`;
+          deskRef.current.style.transform = `translate3d(0, ${scroll * 0.08}px, 0)`;
         if (booksRef.current)
-          booksRef.current.style.transform = `translate3d(${booksX}px, ${booksY + y * -0.18 + floatBooks}px, 0)`;
+          booksRef.current.style.transform = `translate3d(${booksX}px, ${booksY - scroll * 0.18 * reach - 14 * wave(7)}px, 0) rotate(${wave(9) * 1.2}deg)`;
         if (laptopRef.current)
-          laptopRef.current.style.transform = `translate3d(${laptopX}px, ${laptopY + y * -0.04}px, 0)`;
+          laptopRef.current.style.transform = `translate3d(${laptopX}px, ${laptopY - scroll * 0.04 * reach - 6 * wave(8, 1)}px, 0)`;
         if (uiRef.current)
-          uiRef.current.style.transform = `translate3d(-5%, ${y * -0.45 + floatUI}px, 0) scale(0.85)`;
+          uiRef.current.style.transform = `translate3d(-5%, ${-scroll * 0.45 * reach + 16 * wave(6, 2)}px, 0) scale(0.85) rotate(${wave(11) * -1.6}deg)`;
       }
-
       rafId = requestAnimationFrame(render);
     };
 
-    const handleResize = () => {
-      computeLayout();
-    };
-
+    window.addEventListener('resize', computeLayout);
     rafId = requestAnimationFrame(render);
-    window.addEventListener('resize', handleResize);
-
     return () => {
       cancelAnimationFrame(rafId);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', computeLayout);
     };
+  }, []);
+
+  // What enters the screen appears with a short rise; every element marked "reveal" gets it once.
+  useEffect(() => {
+    const items = document.querySelectorAll<HTMLElement>('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach((item) => item.classList.add('in'));
+      return;
+    }
+    const seen = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          seen.unobserve(entry.target);
+        }
+      }),
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+    );
+    items.forEach((item) => seen.observe(item));
+    return () => seen.disconnect();
   }, []);
 
   // Función genérica para realizar scroll suave a cualquier sección
@@ -179,21 +187,14 @@ export default function App({ lang }: { lang: Lang }) {
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-600 selection:bg-teal-100 selection:text-teal-900 overflow-x-hidden relative">
 
-      {/* Resplandores de fondo estilo Arthur AI / Lapa Ninja */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-[-5%] left-[-5%] w-[80vw] h-[80vw] rounded-full bg-teal-100/30 blur-[120px]"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-emerald-100/20 blur-[120px]"></div>
-      </div>
 
       {/* Navegación */}
       <nav aria-label={t.nav.label}className="fixed w-full top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0 flex items-center gap-3 group cursor-pointer" onClick={handleScrollToSection('home')}>
               {/* Contenedor del Logo con el SVG vectorial adaptativo */}
-              <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 shadow-sm group-hover:border-teal-400 transition-all">
-                <Logo className="h-8 w-8 transition-colors" />
-              </div>
+              <BrandMark />
               <span className="font-bold text-2xl tracking-tighter text-slate-900 max-[460px]:hidden">
                 Didactika<span className="text-teal-600 font-light">.org</span>
               </span>
@@ -281,32 +282,41 @@ export default function App({ lang }: { lang: Lang }) {
 
       <main>
       {/* Hero Section */}
-      <section id="home" className="relative pt-32 pb-24 lg:pt-48 lg:pb-32 z-10 flex items-center min-h-[90vh]">
+      <section id="home" className="relative pt-28 pb-16 lg:pt-40 lg:pb-28 z-10 flex items-center min-h-[88vh]">
+        <div className="hero-bg" aria-hidden="true">
+          <div className="orb orb-a" />
+          <div className="orb orb-b" />
+          <div className="orb orb-c" />
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:grid lg:grid-cols-2 gap-16 lg:gap-12 items-center">
           
           {/* Columna de Texto - Aparece PRIMERO en móvil */}
           <div className="relative z-30 text-center lg:text-left">
-            <h1 className="text-5xl sm:text-6xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[0.85] mb-8">
+            <span className="rise inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 font-mono text-[11px] font-medium uppercase tracking-wider text-slate-600 shadow-sm backdrop-blur" style={{ ['--i' as string]: 0 }}>
+              <span className="h-1.5 w-1.5 rounded-full bg-teal-500" /> {t.hero.pill}
+            </span>
+            <h1 className="rise mt-6 mb-7 text-5xl font-bold leading-[0.95] tracking-tight text-slate-900 sm:text-6xl lg:text-7xl xl:text-8xl" style={{ ['--i' as string]: 1 }}>
               {t.hero.titleLine1} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-500">
+              <span className="shine bg-gradient-to-r from-teal-600 via-emerald-400 to-teal-600 bg-clip-text text-transparent">
               {t.hero.titleHighlight}
               </span>
             </h1>
-            <p className="text-lg lg:text-xl text-slate-500 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium">
+            <p className="rise mb-9 mx-auto max-w-lg text-lg font-normal leading-relaxed text-slate-500 lg:mx-0 lg:text-xl" style={{ ['--i' as string]: 2 }}>
               {t.hero.subtitle}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <div className="rise flex flex-col gap-4 justify-center sm:flex-row lg:justify-start" style={{ ['--i' as string]: 3 }}>
               <button 
                 onClick={handleScrollToSection('proyectos')}
-                className="px-10 py-5 bg-teal-600 text-white rounded-2xl font-bold shadow-xl shadow-teal-600/30 hover:bg-teal-700 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                className="group flex items-center justify-center gap-2 rounded-2xl bg-teal-600 px-8 py-4 font-bold text-white shadow-xl shadow-teal-600/30 transition-all hover:-translate-y-0.5 hover:bg-teal-700 active:translate-y-0"
               >
-                {t.hero.cta} <ArrowRight className="h-5 w-5" />
+                {t.hero.cta} <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
           </div>
 
           {/* ESCENARIO PARALLAX */}
-          <div className="relative h-[300px] sm:h-[450px] lg:h-[600px] w-full flex items-center justify-center">
+          <div className="rise relative mt-2 flex h-[300px] w-full items-center justify-center sm:mt-8 sm:h-[450px] lg:mt-0 lg:h-[600px]" style={{ ['--i' as string]: 2 }}>
+            <div className="stage-glow" aria-hidden="true" />
             
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               
@@ -370,7 +380,8 @@ export default function App({ lang }: { lang: Lang }) {
           
           <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div className="max-w-2xl text-left">
-              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
+              <span className="eyebrow reveal mb-4">{t.nav.projects}</span>
+              <h2 className="reveal text-4xl font-bold tracking-tight text-slate-900 mb-4 lg:text-5xl">
                 {t.projects.title.pre}<span className="text-teal-600">{t.projects.title.highlight}</span>{t.projects.title.post}
               </h2>
               <p className="text-lg text-slate-500 font-medium">
@@ -389,12 +400,13 @@ export default function App({ lang }: { lang: Lang }) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.slice(0, FEATURED).map((project) => {
+            {projects.slice(0, FEATURED).map((project, index) => {
               const desc = getProjectDesc(project, lang);
               return (
               <div
-                key={project.id} 
-                className="relative bg-white/80 backdrop-blur-md p-6 rounded-3xl border border-slate-200/80 hover:border-teal-500/50 hover:shadow-[0_15px_30px_rgba(13,148,136,0.04)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group"
+                key={project.id}
+                style={{ ['--i' as string]: index % 3 }}
+                className="reveal relative bg-white/80 backdrop-blur-md p-6 rounded-3xl border border-slate-200/80 hover:border-teal-500/50 hover:shadow-[0_15px_30px_rgba(13,148,136,0.04)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group"
               >
                 <div>
                   {/* Fila superior: Tipo de Ecosistema */}
@@ -544,7 +556,8 @@ export default function App({ lang }: { lang: Lang }) {
       <section id="ecosistema" className="scroll-mt-24 py-24 relative z-10 border-t border-slate-100 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl text-left mb-12">
-            <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
+            <span className="eyebrow reveal mb-4">{t.nav.docs}</span>
+            <h2 className="reveal text-4xl font-bold tracking-tight text-slate-900 mb-4 lg:text-5xl">
               {t.ecosystem.title.pre}<span className="text-teal-600">{t.ecosystem.title.highlight}</span>{t.ecosystem.title.post}
             </h2>
             <p className="text-lg text-slate-500 font-medium">{t.ecosystem.subtitle}</p>
@@ -560,7 +573,7 @@ export default function App({ lang }: { lang: Lang }) {
                 <a
                   key={key}
                   href={href}
-                  className="group flex flex-col rounded-3xl border border-slate-200 bg-slate-50 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-teal-500/50 hover:shadow-[0_15px_30px_rgba(13,148,136,0.06)]"
+                  className="reveal group flex flex-col rounded-3xl border border-slate-200 bg-slate-50 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-teal-500/50 hover:shadow-[0_15px_30px_rgba(13,148,136,0.06)]"
                 >
                   <span className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-teal-50 text-teal-700 transition-colors group-hover:bg-teal-600 group-hover:text-white">
                     <Icon className="h-7 w-7" aria-hidden="true" />
