@@ -1,6 +1,8 @@
-import { Heart, LayoutGrid, UserPlus } from 'lucide-react';
+import { Heart, UserPlus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { BrandMark } from './Brand';
+import photoEduardo from './assets/eduardo-pp.jpg';
+import photoHector from './assets/hector-pp.jpg';
 import { LANG_PATHS, dictionaries } from './i18n';
 import type { Lang } from './i18n';
 
@@ -11,9 +13,14 @@ interface Person {
 }
 
 const ORG = 'didactika';
-const MAX = 10;
+const MAX = 8;
 const CACHE_KEY = 'didactika-people';
 const CACHE_MS = 30 * 60 * 1000;
+
+const FOUNDERS = [
+  { login: 'E2RD0', name: 'Eduardo Estrada', photo: photoEduardo },
+  { login: 'hector-ae21', name: 'Hector Arrechea', photo: photoHector },
+];
 
 const GithubMark = ({ className = '' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -21,8 +28,9 @@ const GithubMark = ({ className = '' }: { className?: string }) => (
   </svg>
 );
 
-// The people of the organisation: its public members on GitHub (the co-founders have their own section above), read when the page opens
-// and kept for half an hour so a visit does not spend the limit GitHub puts on anonymous requests. Without them, none are shown.
+// The collaborators, the same on every site of Didactika: the public members of the organisation on GitHub except the co-founders, who are
+// shown on their own. They are read when the page opens and kept for half an hour so a visit does not spend the limit GitHub puts on
+// anonymous requests. Without them, none are shown.
 function useCollaborators(): Person[] {
   const [people, setPeople] = useState<Person[]>([]);
 
@@ -43,7 +51,9 @@ function useCollaborators(): Person[] {
       });
       if (!response.ok) return;
       const raw = (await response.json()) as Array<{ login: string; html_url: string; avatar_url: string }>;
-      const list = raw.map((user) => ({ login: user.login, url: user.html_url, avatar: `${user.avatar_url}${user.avatar_url.includes('?') ? '&' : '?'}s=64` }));
+      const list = raw
+        .filter((user) => !FOUNDERS.some((founder) => founder.login.toLowerCase() === user.login.toLowerCase()))
+        .map((user) => ({ login: user.login, url: user.html_url, avatar: `${user.avatar_url}${user.avatar_url.includes('?') ? '&' : '?'}s=64` }));
       try {
         sessionStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), list }));
       } catch {
@@ -60,19 +70,18 @@ function useCollaborators(): Person[] {
   return people;
 }
 
-// The foot of every page of didactika.org: what Didactika is, who collaborates, where everything is and how to support it. The co-founders
-// and the documentation have their own place on the page, so the foot does not repeat them.
+// The foot of every page of didactika.org, the same as the one of the documentation and of the design system: what Didactika is, its
+// co-founders, its collaborators and how to support it. GitHub is an icon of the header, and of the foot where the header has no room.
 export default function Footer({ lang }: { lang: Lang }) {
   const t = dictionaries[lang].footer;
   const people = useCollaborators();
   const shown = people.slice(0, MAX);
-  const button = 'inline-flex h-9 items-center gap-2 rounded-xl border border-slate-200 px-3 text-[13px] font-semibold text-slate-800 transition-colors hover:border-teal-400 hover:bg-teal-50';
 
   return (
     <footer className="relative z-10 border-t border-slate-100 bg-white">
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-6">
-          <a href={LANG_PATHS[lang]} className="flex max-w-md items-center gap-3 text-slate-900">
+      <div className="mx-auto grid max-w-7xl gap-5 px-4 py-6 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-5">
+          <a href={LANG_PATHS[lang]} className="flex max-w-sm items-center gap-3 text-slate-900">
             <BrandMark size="lg" />
             <span>
               <b className="block text-base font-bold">Didactika.org</b>
@@ -80,9 +89,26 @@ export default function Footer({ lang }: { lang: Lang }) {
             </span>
           </a>
 
-          {shown.length > 0 && (
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <ul className="flex flex-wrap gap-2">
+              {FOUNDERS.map((person) => (
+                <li key={person.login}>
+                  <a
+                    href={`https://github.com/${person.login}`}
+                    title={`${person.name} · GitHub`}
+                    className="flex items-center gap-2.5 rounded-full border border-slate-200 bg-slate-50 py-1 pl-1 pr-4 transition-colors hover:border-teal-400 hover:bg-teal-50"
+                  >
+                    <img src={person.photo} alt="" width={32} height={32} className="h-8 w-8 rounded-full object-cover" />
+                    <span>
+                      <b className="block text-[13px] font-semibold leading-tight text-slate-900">{person.name}</b>
+                      <small className="block text-[11px] text-slate-500">{t.cofounder}</small>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
             <div className="flex items-center gap-2.5">
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-500">{t.collaborators}</span>
+              {shown.length > 0 && <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-500">{t.collaborators}</span>}
               <span className="flex items-center pl-1.5">
                 {shown.map((person) => (
                   <a key={person.login} href={person.url} title={person.login} aria-label={person.login} className="-ml-1.5 h-8 w-8 rounded-full ring-2 ring-white transition-transform hover:z-10 hover:-translate-y-0.5">
@@ -104,22 +130,16 @@ export default function Footer({ lang }: { lang: Lang }) {
                 <UserPlus className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
-          )}
-
-          <nav aria-label="Didactika" className="flex flex-wrap gap-2">
-            <a href={`${LANG_PATHS[lang]}resources/`} className={button}>
-              <LayoutGrid className="h-4 w-4 text-slate-500" aria-hidden="true" /> {t.resources}
-            </a>
-            <a href="https://github.com/didactika" className={button}>
-              <GithubMark className="h-4 w-4 text-slate-500" /> GitHub
-            </a>
-          </nav>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-2 border-t border-slate-100 pt-4 text-xs text-slate-500">
           <span>© {new Date().getFullYear()} Didactika · {t.licence}</span>
           <a href="https://ko-fi.com/didactika" rel="noopener" className="inline-flex items-center gap-1.5 text-slate-500 transition-colors hover:text-slate-900">
             <Heart className="h-3.5 w-3.5 text-rose-600" aria-hidden="true" /> {t.support}
+          </a>
+          <a href="https://github.com/didactika" aria-label="GitHub" title="GitHub" className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 text-slate-500 transition-colors hover:border-teal-400 hover:text-teal-700 md:hidden">
+            <GithubMark className="h-4 w-4" />
           </a>
         </div>
       </div>

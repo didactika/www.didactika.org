@@ -89,7 +89,6 @@ export const en: Dictionary = {
     collaborators: 'Collaborators',
     allCollaborators: 'All collaborators on GitHub',
     join: 'See everything we build and contribute',
-    resources: 'Resources',
     support: 'Support Didactika',
     licence: 'Open source',
   },
