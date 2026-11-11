@@ -135,8 +135,52 @@
       }
     ],
     "license": "GPL-3.0",
-    "version": "v1.0.0",
+    "version": "v1.1.0",
     "link": "https://github.com/didactika/moodle-local_delegateaccount",
-    "moodleLink": "https://marketplace.moodle.com/plugins/local_delegateaccount"
+    "moodleLink": "https://marketplace.moodle.com/plugins/local_delegateaccount",
+    "docs": {
+      "es": "https://docs.didactika.org/es/plugins/local-delegateaccount/",
+      "en": "https://docs.didactika.org/en/plugins/local-delegateaccount/"
+    }
+  },
+  {
+    "id": "moodle-client",
+    "type": "npm",
+    "typeName": "NPM Package",
+    "name": "@didactika/moodle-client",
+    "translation": [
+      {
+        "lang": "es",
+        "desc": "Cliente TypeScript que construye y envía peticiones autenticadas a la API de servicios web de Moodle, gestionando los tokens y los métodos HTTP."
+      },
+      {
+        "lang": "en",
+        "desc": "TypeScript client that builds and sends authenticated requests to Moodle's web services API, handling tokens and HTTP methods."
+      }
+    ],
+    "license": "MIT",
+    "version": "v2.1.0",
+    "installCmd": "npm i @didactika/moodle-client",
+    "link": "https://github.com/didactika/moodle-client"
+  },
+  {
+    "id": "moodle-client-schemas",
+    "type": "npm",
+    "typeName": "NPM Package",
+    "name": "@didactika/moodle-client-schemas",
+    "translation": [
+      {
+        "lang": "es",
+        "desc": "Extrae esquemas JSON y contratos de parámetros tipados de los servicios web de Moodle, para cualquier versión, sin una instancia de Moodle en ejecución."
+      },
+      {
+        "lang": "en",
+        "desc": "Extracts strict, typed JSON Schemas and parameter contracts of the Moodle web services, for every version of Moodle, with no running Moodle instance."
+      }
+    ],
+    "license": "MIT",
+    "version": "v0.1.0",
+    "installCmd": "npm i @didactika/moodle-client-schemas",
+    "link": "https://github.com/didactika/moodle-client-schemas"
   }
 ]

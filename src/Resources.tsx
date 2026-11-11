@@ -1,6 +1,7 @@
 import { ArrowLeft, BookOpen, Code, ExternalLink, Heart, Package, Palette, Plug } from 'lucide-react';
 import type { ComponentType } from 'react';
 import { Logo } from './App';
+import Footer from './Footer';
 import resources from './data/resources.json';
 import { LANGS, LANG_PATHS, rememberLang } from './i18n';
 import type { Lang } from './i18n';
@@ -130,6 +131,7 @@ export default function Resources({ lang }: { lang: Lang }) {
           ))}
         </div>
       </main>
+      <Footer lang={lang} />
     </div>
   );
 }

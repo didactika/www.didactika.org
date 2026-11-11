@@ -1,7 +1,7 @@
 import { Fragment, useState, useLayoutEffect, useRef } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 import {
-  BookOpen, Package, Menu, X,
+  BookOpen, Package, Menu, X, Palette, LayoutGrid,
   Globe, ArrowRight, ExternalLink, Check, Cpu, Layers,
   Terminal
 } from 'lucide-react';
@@ -19,6 +19,7 @@ import photoHector from './assets/hector-pp.jpg';
 // Datos de proyectos (externalizados a JSON)
 import projectsData from './data/projects.json';
 
+import Footer from './Footer';
 import { LANGS, LANG_PATHS, DEFAULT_LANG, dictionaries, rememberLang } from './i18n';
 import type { Lang } from './i18n';
 
@@ -33,6 +34,7 @@ type Project = {
   link: string;
   installCmd?: string;
   moodleLink?: string;
+  docs?: Partial<Record<Lang, string>>;
 };
 
 // Iconos de marca (lucide-react ya no incluye logos de terceros)
@@ -226,6 +228,9 @@ export default function App({ lang }: { lang: Lang }) {
               >
                 {t.nav.projects}
               </button>
+              <a href="https://docs.didactika.org/" className="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-teal-700 transition-colors">
+                {t.nav.docs}
+              </a>
               <button
                 onClick={handleScrollToSection('about')}
                 className="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-teal-700 transition-colors"
@@ -265,6 +270,12 @@ export default function App({ lang }: { lang: Lang }) {
               >
                 {t.nav.projects}
               </button>
+              <a
+                href="https://docs.didactika.org/"
+                className="block text-left text-base font-semibold text-slate-700 hover:text-teal-700 p-3 rounded-lg hover:bg-slate-50 w-full"
+              >
+                {t.nav.docs}
+              </a>
               <button
                 onClick={handleScrollToSection('about')}
                 className="text-left text-base font-semibold text-slate-700 hover:text-teal-700 p-3 rounded-lg hover:bg-slate-50 w-full"
@@ -309,6 +320,12 @@ export default function App({ lang }: { lang: Lang }) {
               >
                 {t.hero.cta} <ArrowRight className="h-5 w-5" />
               </button>
+              <a
+                href="https://docs.didactika.org/"
+                className="px-10 py-5 bg-white text-slate-800 rounded-2xl font-bold border border-slate-200 shadow-sm hover:border-teal-400 hover:text-teal-700 transition-all flex items-center justify-center gap-2"
+              >
+                <BookOpen className="h-5 w-5" /> {t.hero.ctaDocs}
+              </a>
             </div>
           </div>
 
@@ -505,6 +522,16 @@ export default function App({ lang }: { lang: Lang }) {
                           <span>GitHub</span>
                         </a>
 
+                        {project.docs?.[lang] && (
+                          <a
+                            href={project.docs[lang]}
+                            className="px-2 py-2 text-[11px] xs:text-xs font-bold rounded-xl border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all flex items-center justify-center gap-1 shadow-sm w-full h-full sm:w-auto text-center whitespace-nowrap"
+                          >
+                            <BookOpen className="h-3.5 w-3.5 text-slate-500 shrink-0" />
+                            <span>{t.projects.docs}</span>
+                          </a>
+                        )}
+
                         {/* Botón de Moodle Directory */}
                         <a 
                           href={project.moodleLink || "https://moodle.org/plugins/"} 
@@ -525,6 +552,43 @@ export default function App({ lang }: { lang: Lang }) {
             })}
           </div>
 
+        </div>
+      </section>
+
+      {/* Ecosistema: documentación, sistema de diseño y recursos */}
+      <section id="ecosistema" className="scroll-mt-24 py-24 relative z-10 border-t border-slate-100 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl text-left mb-12">
+            <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
+              {t.ecosystem.title.pre}<span className="text-teal-600">{t.ecosystem.title.highlight}</span>{t.ecosystem.title.post}
+            </h2>
+            <p className="text-lg text-slate-500 font-medium">{t.ecosystem.subtitle}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { key: 'docs', href: 'https://docs.didactika.org/', icon: BookOpen },
+              { key: 'design', href: 'https://moodle-design.didactika.org/', icon: Palette },
+              { key: 'resources', href: `${LANG_PATHS[lang]}resources/`, icon: LayoutGrid },
+            ].map(({ key, href, icon: Icon }) => {
+              const item = t.ecosystem.items[key as 'docs' | 'design' | 'resources'];
+              return (
+                <a
+                  key={key}
+                  href={href}
+                  className="group flex flex-col rounded-3xl border border-slate-200 bg-[#F8FAFC] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-teal-500/50 hover:shadow-[0_15px_30px_rgba(13,148,136,0.06)]"
+                >
+                  <span className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-teal-50 text-teal-700 transition-colors group-hover:bg-teal-600 group-hover:text-white">
+                    <Icon className="h-7 w-7" aria-hidden="true" />
+                  </span>
+                  <h3 className="text-xl font-bold text-slate-900">{item.title}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-500">{item.text}</p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-teal-700">
+                    {item.cta} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </span>
+                </a>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -642,24 +706,7 @@ export default function App({ lang }: { lang: Lang }) {
       </section>
       </main>
 
-      <footer className="py-20 bg-white border-t border-slate-100 text-center relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8 text-slate-400 text-sm font-medium">
-          <div className="flex items-center gap-3">
-            <div className="h-8 w-8 bg-slate-900 rounded-lg p-1.5 flex items-center justify-center">
-              <Logo className="h-6 w-6 text-white" fill="#ffffff" />
-            </div>
-            <span className="text-slate-900 font-bold">Didactika.org</span>
-          </div>
-          <div>
-            <p>© {new Date().getFullYear()} — Didactika.org</p>
-            <p>{t.footer.tagline}</p>
-          </div>
-          <div className="flex gap-6">
-            <a href={`${LANG_PATHS[lang]}resources/`} className="hover:text-slate-900 transition-colors">{t.footer.resources}</a>
-            <a href="https://github.com/didactika" className="hover:text-slate-900 transition-colors">GitHub</a>
-          </div>
-        </div>
-      </footer>
+      <Footer lang={lang} />
     </div>
   );
 }

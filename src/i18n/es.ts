@@ -5,6 +5,7 @@ export const es = {
     label: 'Navegación principal',
     projects: 'Proyectos',
     about: 'Acerca de',
+    docs: 'Documentación',
     language: 'Idioma',
   },
   hero: {
@@ -13,6 +14,7 @@ export const es = {
     subtitle:
       'Desarrollamos software que impulsa el aprendizaje. Plugins para Moodle, paquetes NPM y herramientas de código abierto para entornos virtuales de aprendizaje.',
     cta: 'Explorar Proyectos',
+    ctaDocs: 'Leer la documentación',
     alt: {
       desk: 'Escritorio',
       books: 'Libros',
@@ -28,6 +30,7 @@ export const es = {
     viewCodeOnGithub: 'Ver código en GitHub',
     viewOnMoodle: 'Ver en el directorio oficial de plugins de Moodle',
     install: 'Instalar',
+    docs: 'Documentación',
     copied: 'Copiado',
   },
   about: {
@@ -57,9 +60,27 @@ export const es = {
         'Ingeniero informático y máster en ciberseguridad, con experiencia en Moodle, microservicios e integraciones con sistemas educativos. Su enfoque técnico integra seguridad aplicada, patrones de diseño y criterios de calidad en el desarrollo de soluciones para plataformas educativas.',
     },
   },
+  ecosystem: {
+    title: { pre: 'Todo lo que ', highlight: 'necesita', post: ' para empezar.' },
+    subtitle: 'Documentación, sistema de diseño y el listado completo de lo que Didactika publica.',
+    items: {
+      docs: { title: 'Documentación', text: 'Guías de instalación, manuales de uso y referencia técnica de cada plugin y librería, por versión y en español e inglés.', cta: 'Abrir la documentación' },
+      design: { title: 'Sistema de diseño', text: 'Los componentes, las variables y los criterios que dan a todos los plugins de Moodle de Didactika el mismo aspecto.', cta: 'Ver el sistema de diseño' },
+      resources: { title: 'Todos los recursos', text: 'Cada sitio, repositorio, paquete y servicio de Didactika en un único listado.', cta: 'Ver los recursos' },
+    },
+  },
   footer: {
+    about: 'Software educativo de código abierto: plugins para Moodle, paquetes npm y herramientas para entornos virtuales de aprendizaje.',
     tagline: 'Impulsando la educación a través del código abierto.',
+    cofounder: 'Cofundador',
+    collaborators: 'Colaboradores',
+    allCollaborators: 'Todos los colaboradores en GitHub',
+    join: 'Ver todo lo que construimos y aportamos',
+    docs: 'Documentación',
+    design: 'Sistema de diseño',
     resources: 'Recursos',
+    support: 'Apoya a Didactika',
+    licence: 'Código abierto',
   },
 };
 
