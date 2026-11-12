@@ -20,3 +20,17 @@ node tools/add-language.mjs fr "Français"
 ```
 
 Copia los textos en inglés a `src/i18n/fr.ts` (se traducen a mano), registra el idioma, crea `/fr/` y `/fr/resources/`, los añade al sitemap y a los `hreflang` de cada página y hace que quien tenga el navegador en ese idioma llegue a él. El menú de idiomas crece solo y, a partir de seis, ofrece un buscador. El tema claro y oscuro sale del sistema o de la elección guardada.
+
+## Publicación
+
+El sitio se construye y se publica con GitHub Pages (`.github/workflows/pages.yml`) en cada push a `main` y a mano. El dominio es `didactika.org` (`public/CNAME`). Pages no puede redirigir desde el servidor, así que la elección de idioma de quien llega a `/` la hace un pequeño script de `index.html` (cookie `lang`, o el idioma del navegador entre los `hreflang` de la página).
+
+Se activa una vez, por una persona con permisos de administración:
+
+```bash
+gh repo edit didactika/www.didactika.org --visibility public --accept-visibility-change-consequences
+gh api -X POST repos/didactika/www.didactika.org/pages -f build_type=workflow
+gh api -X PUT repos/didactika/www.didactika.org/pages -f cname=didactika.org -F https_enforced=true
+```
+
+y en el DNS de didactika.org: cuatro registros `A` del apex hacia `185.199.108.153`, `185.199.109.153`, `185.199.110.153` y `185.199.111.153`, y un `CNAME` de `www` hacia `didactika.github.io`.

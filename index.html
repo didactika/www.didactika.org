@@ -21,6 +21,29 @@
     <link rel="alternate" hreflang="es" href="https://didactika.org/" />
     <link rel="alternate" hreflang="en" href="https://didactika.org/en/" />
     <link rel="alternate" hreflang="x-default" href="https://didactika.org/en/" />
+    <script>
+      // The default language lives at the root. A visitor who has not chosen a language is sent to the one their browser asks for, among the
+      // alternates of this page; one who has chosen (the cookie "lang", which the language menu sets) is sent to that one. This is what the
+      // server did before the site was served by GitHub Pages, which cannot redirect.
+      (function () {
+        var here = document.documentElement.lang;
+        var links = {};
+        document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function (link) { links[link.hreflang] = new URL(link.href).pathname; });
+        if (location.pathname !== links[here]) { return; }
+        var chosen = (document.cookie.match(/(?:^|; )lang=([^;]+)/) || [])[1];
+        var want = links[chosen] ? chosen : '';
+        if (!want) {
+          var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+          for (var i = 0; i < prefs.length && !want; i++) {
+            var code = String(prefs[i]).toLowerCase().split('-')[0];
+            if (links[code]) { want = code; }
+          }
+          // Whoever reads Spanish, Catalan, Galician or Basque stays in the default language; anybody else gets English.
+          if (!want) { want = /^(es|ca|gl|eu)$/.test(String(prefs[0] || '').toLowerCase().split('-')[0]) ? here : 'en'; }
+        }
+        if (want !== here && links[want]) { location.replace(links[want] + location.search + location.hash); }
+      })();
+    </script>
 
     <!-- Icons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
