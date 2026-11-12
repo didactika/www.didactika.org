@@ -7,6 +7,8 @@ export const en: Dictionary = {
     projects: 'Projects',
     about: 'About',
     docs: 'Documentation',
+    resources: 'Resources',
+    menu: 'Open the menu',
     language: 'Language',
     languageFilter: 'Find a language',
     theme: 'Switch between light and dark theme',

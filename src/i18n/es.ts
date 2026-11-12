@@ -6,6 +6,8 @@ export const es = {
     projects: 'Proyectos',
     about: 'Acerca de',
     docs: 'Documentación',
+    resources: 'Recursos',
+    menu: 'Abrir el menú',
     language: 'Idioma',
     languageFilter: 'Buscar un idioma',
     theme: 'Cambiar entre tema claro y oscuro',

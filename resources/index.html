@@ -44,7 +44,8 @@
     <script>
       (function () {
         var theme = null;
-        try { theme = localStorage.getItem('didactika-theme'); } catch (error) { /* no storage */ }
+        // A choice made with the switch is respected for 30 days; after that, and when there is none, the theme is the one of the system.
+        try { var saved = JSON.parse(localStorage.getItem('didactika-theme')); if (saved && Date.now() - saved.at < 2592000000) { theme = saved.v; } } catch (error) { /* no storage */ }
         if (theme !== 'light' && theme !== 'dark') { theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
         document.documentElement.dataset.theme = theme;
       })();

@@ -1,7 +1,6 @@
 import { ArrowLeft, BookOpen, Code, ExternalLink, Heart, Package, Palette, Plug } from 'lucide-react';
 import type { ComponentType } from 'react';
-import { BrandMark } from './Brand';
-import { LanguageMenu, ThemeToggle } from './Controls';
+import SiteNav from './SiteNav';
 import Footer from './Footer';
 import resources from './data/resources.json';
 import { LANG_PATHS, dictionaries } from './i18n';
@@ -44,22 +43,9 @@ export default function Resources({ lang }: { lang: Lang }) {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-600 selection:bg-teal-100 selection:text-teal-900">
-      <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/80 backdrop-blur-md">
-        <div className="mx-auto flex h-20 max-w-5xl items-center justify-between gap-3 px-4 sm:px-6">
-          <a href={LANG_PATHS[lang]} className="flex items-center gap-3 group" aria-label={t.resources.back}>
-            <BrandMark />
-            <span className="text-xl font-bold tracking-tighter text-slate-900 sm:text-2xl max-[420px]:hidden">
-              Didactika<span className="font-light text-teal-600">.org</span>
-            </span>
-          </a>
-          <div className="flex items-center gap-2">
-            <LanguageMenu lang={lang} label={t.nav.language} filterLabel={t.nav.languageFilter} path="resources/" />
-            <ThemeToggle label={t.nav.theme} />
-          </div>
-        </div>
-      </header>
+      <SiteNav lang={lang} path="resources/" />
 
-      <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
+      <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <a href={LANG_PATHS[lang]} className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition-colors hover:text-teal-700">
           <ArrowLeft className="h-4 w-4" aria-hidden="true" /> {t.resources.back}
         </a>
@@ -82,7 +68,7 @@ export default function Resources({ lang }: { lang: Lang }) {
                 {group.title[lang]}
               </h2>
               <p className="mt-1 text-slate-500">{group.description[lang]}</p>
-              <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+              <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {group.items.map((item) => {
                   const Icon = ICONS[item.icon] ?? Code;
                   const docs = item.docs?.[lang];

@@ -1,7 +1,7 @@
 import { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 import {
-  BookOpen, Package, Menu, X, Palette, LayoutGrid,
+  BookOpen, Package, Palette, LayoutGrid,
   Globe, ArrowRight, ExternalLink, Check, Cpu, Layers,
   Terminal
 } from 'lucide-react';
@@ -19,9 +19,8 @@ import photoHector from './assets/hector-pp.jpg';
 // Datos de proyectos (externalizados a JSON)
 import projectsData from './data/projects.json';
 
-import { BrandMark } from './Brand';
 import Footer from './Footer';
-import { LanguageMenu, ThemeToggle } from './Controls';
+import SiteNav from './SiteNav';
 import { LANG_PATHS, DEFAULT_LANG, dictionaries } from './i18n';
 import type { Lang } from './i18n';
 
@@ -77,7 +76,6 @@ const FEATURED = 6;
 
 export default function App({ lang }: { lang: Lang }) {
   const t = dictionaries[lang];
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [copiedRepoId, setCopiedRepoId] = useState<string | null>(null);
 
   // Refs a cada capa del parallax: escribimos el transform directo al DOM
@@ -161,7 +159,6 @@ export default function App({ lang }: { lang: Lang }) {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-    setIsMobileMenuOpen(false); // Cierra menú móvil si está abierto
   };
 
   const copyToClipboard = (text: string, repoId: string | null = null) => {
@@ -188,99 +185,7 @@ export default function App({ lang }: { lang: Lang }) {
     <div className="min-h-screen bg-slate-50 font-sans text-slate-600 selection:bg-teal-100 selection:text-teal-900 overflow-x-hidden relative">
 
 
-      {/* Navegación */}
-      <nav aria-label={t.nav.label}className="fixed w-full top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex-shrink-0 flex items-center gap-3 group cursor-pointer" onClick={handleScrollToSection('home')}>
-              {/* Contenedor del Logo con el SVG vectorial adaptativo */}
-              <BrandMark />
-              <span className="font-bold text-2xl tracking-tighter text-slate-900 max-[460px]:hidden">
-                Didactika<span className="text-teal-600 font-light">.org</span>
-              </span>
-            </div>
-
-            {/* Navbar Links */}
-            <div className="hidden md:flex items-center space-x-2">
-              <LanguageMenu lang={lang} label={t.nav.language} filterLabel={t.nav.languageFilter} />
-              <ThemeToggle label={t.nav.theme} />
-              <button
-                onClick={handleScrollToSection('proyectos')} 
-                className="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-teal-700 transition-colors"
-              >
-                {t.nav.projects}
-              </button>
-              <a href="https://docs.didactika.org/" className="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-teal-700 transition-colors">
-                {t.nav.docs}
-              </a>
-              <button
-                onClick={handleScrollToSection('about')}
-                className="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-teal-700 transition-colors"
-              >
-                {t.nav.about}
-              </button>
-              <a
-                href="https://github.com/didactika" 
-                target="_blank" 
-                rel="noreferrer" 
-                aria-label="GitHub"
-                title="GitHub"
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition-colors hover:border-teal-400 hover:text-teal-700"
-              >
-                <Github className="h-4 w-4" />
-              </a>
-            </div>
-
-            {/* Menu móvil trigger */}
-            <div className="md:hidden flex items-center gap-2">
-              <LanguageMenu lang={lang} label={t.nav.language} filterLabel={t.nav.languageFilter} />
-              <ThemeToggle label={t.nav.theme} />
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-                className="text-slate-500 hover:text-slate-900 p-2"
-              >
-                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Menú Móvil */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-3xl border-b border-slate-200 px-4 pt-2 pb-6 absolute w-full shadow-xl z-50">
-            <div className="flex flex-col space-y-2">
-              <button 
-                onClick={handleScrollToSection('proyectos')}
-                className="text-left text-base font-semibold text-slate-700 hover:text-teal-700 p-3 rounded-lg hover:bg-slate-50 w-full"
-              >
-                {t.nav.projects}
-              </button>
-              <a
-                href="https://docs.didactika.org/"
-                className="block text-left text-base font-semibold text-slate-700 hover:text-teal-700 p-3 rounded-lg hover:bg-slate-50 w-full"
-              >
-                {t.nav.docs}
-              </a>
-              <button
-                onClick={handleScrollToSection('about')}
-                className="text-left text-base font-semibold text-slate-700 hover:text-teal-700 p-3 rounded-lg hover:bg-slate-50 w-full"
-              >
-                {t.nav.about}
-              </button>
-              <a 
-                href="https://github.com/didactika"
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-center gap-2 w-full px-4 py-3 mt-4 rounded-xl bg-slate-900 text-white font-bold"
-              >
-                <Github className="h-5 w-5" />
-                <span>GitHub</span>
-              </a>
-            </div>
-          </div>
-        )}
-      </nav>
+      <SiteNav lang={lang} />
 
       <main>
       {/* Hero Section */}

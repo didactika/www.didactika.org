@@ -23,5 +23,5 @@ export const getPageLang = (): Lang =>
 // Guarda la elección del usuario. vercel.json la lee para no aplicar la
 // redirección automática por Accept-Language una vez que el usuario eligió.
 export const rememberLang = (lang: Lang) => {
-  document.cookie = `lang=${lang}; path=/; max-age=31536000; samesite=lax`;
+  document.cookie = `lang=${lang}; path=/; max-age=2592000; samesite=lax`;
 };

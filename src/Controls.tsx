@@ -17,7 +17,7 @@ export function ThemeToggle({ label }: { label: string }) {
     const next = currentTheme() === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
     try {
-      localStorage.setItem(THEME_KEY, next);
+      localStorage.setItem(THEME_KEY, JSON.stringify({ v: next, at: Date.now() }));
     } catch {
       /* the page works without storage */
     }
