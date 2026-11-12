@@ -223,9 +223,11 @@ export default function App({ lang }: { lang: Lang }) {
                 href="https://github.com/didactika" 
                 target="_blank" 
                 rel="noreferrer" 
-                className="ml-4 px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition-all shadow-lg flex items-center gap-2"
+                aria-label="GitHub"
+                title="GitHub"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition-colors hover:border-teal-400 hover:text-teal-700"
               >
-                <Github className="h-4 w-4" /> GitHub
+                <Github className="h-4 w-4" />
               </a>
             </div>
 

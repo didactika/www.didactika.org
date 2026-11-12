@@ -88,7 +88,6 @@ export const es = {
     collaborators: 'Colaboradores',
     allCollaborators: 'Todos los colaboradores en GitHub',
     join: 'Ver todo lo que construimos y aportamos',
-    resources: 'Recursos',
     support: 'Apoya a Didactika',
     licence: 'Código abierto',
   },
