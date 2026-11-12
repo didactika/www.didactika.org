@@ -294,9 +294,6 @@ export default function App({ lang }: { lang: Lang }) {
           
           {/* Columna de Texto - Aparece PRIMERO en móvil */}
           <div className="relative z-30 text-center lg:text-left">
-            <span className="rise inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 font-mono text-[11px] font-medium uppercase tracking-wider text-slate-600 shadow-sm backdrop-blur" style={{ ['--i' as string]: 0 }}>
-              <span className="h-1.5 w-1.5 rounded-full bg-teal-500" /> {t.hero.pill}
-            </span>
             <h1 className="rise mb-7 text-5xl font-bold leading-[0.95] tracking-tight text-slate-900 sm:text-6xl lg:text-7xl xl:text-8xl" style={{ ['--i' as string]: 1 }}>
               {t.hero.titleLine1} <br />
               <span className="shine bg-gradient-to-r from-teal-600 via-emerald-400 to-teal-600 bg-clip-text text-transparent">
