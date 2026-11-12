@@ -16,7 +16,6 @@ export const en: Dictionary = {
     titleHighlight: 'Technology.',
     subtitle:
       'We build open source software that drives learning: plugins, libraries and tools for digital learning environments.',
-    pill: 'Open source · Educational technology',
     cta: 'Explore Projects',
     ctaDocs: 'Read the documentation',
     alt: {

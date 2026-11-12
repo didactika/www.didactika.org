@@ -15,7 +15,6 @@ export const es = {
     titleHighlight: 'Didáctica.',
     subtitle:
       'Desarrollamos software de código abierto que impulsa el aprendizaje: plugins, librerías y herramientas para entornos digitales de aprendizaje.',
-    pill: 'Código abierto · Tecnología educativa',
     cta: 'Explorar Proyectos',
     ctaDocs: 'Leer la documentación',
     alt: {
